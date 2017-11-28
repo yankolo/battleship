@@ -3,171 +3,182 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="625" Width="525" ResizeMode="NoResize">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="100" />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.1*"/>
         </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="10" Grid.RowSpan="3" x:Name="maintext" Background="DarkGray" Loaded="Output_Loaded" Text="" FontSize="18" Foreground="White" TextDecorations="{x:Null}" FontFamily="Arial" TextAlignment="Center"/>
 
 
-        <Button Grid.Row="11" Grid.Column="0" BorderThickness="0" x:Name="scoreboard"></Button>
+            <Label Grid.Column="1" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">0</Label>
+            <Label Grid.Column="2" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">1</Label>
+            <Label Grid.Column="3" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">2</Label>
+            <Label Grid.Column="4" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">3</Label>
+            <Label Grid.Column="5" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">4</Label>
+            <Label Grid.Column="6" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">5</Label>
+            <Label Grid.Column="7" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">6</Label>
+            <Label Grid.Column="8" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">7</Label>
+            <Label Grid.Column="9" BorderThickness="0"  HorizontalAlignment="Center" VerticalAlignment="Center">8</Label>
+            <Label Grid.Column="10" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">9</Label>
 
-       
+            <Label Grid.Row="1" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">A</Label>
+            <Label Grid.Row="2" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">B</Label>
+            <Label Grid.Row="3" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">C</Label>
+            <Label Grid.Row="4" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">D</Label>
+            <Label Grid.Row="5" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">E</Label>
+            <Label Grid.Row="6" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">F</Label>
+            <Label Grid.Row="7" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">G</Label>
+            <Label Grid.Row="8" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">H</Label>
+            <Label Grid.Row="9" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">I</Label>
+            <Label Grid.Row="10" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">J</Label>
 
-        <Label Grid.Column="1" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">0</Label>
-        <Label Grid.Column="2" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">1</Label>
-        <Label Grid.Column="3" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">2</Label>
-        <Label Grid.Column="4" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">3</Label>
-        <Label Grid.Column="5" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">4</Label>
-        <Label Grid.Column="6" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">5</Label>
-        <Label Grid.Column="7" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">6</Label>
-        <Label Grid.Column="8" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">7</Label>
-        <Label Grid.Column="9" BorderThickness="0"  HorizontalAlignment="Center" VerticalAlignment="Center">8</Label>
-        <Label Grid.Column="10" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">9</Label>
+            <Button Background="Green" Grid.Row="1" Grid.Column="1" BorderThickness="0" Name="x1y1" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="2" Grid.Column="1" BorderThickness="0" Name="x1y2" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="3" Grid.Column="1" BorderThickness="0" Name="x1y3" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="4" Grid.Column="1" BorderThickness="0" Name="x1y4" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="5" Grid.Column="1" BorderThickness="0" Name="x1y5" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="6" Grid.Column="1" BorderThickness="0" Name="x1y6" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="7" Grid.Column="1" BorderThickness="0" Name="x1y7" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="8" Grid.Column="1" BorderThickness="0" Name="x1y8" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="9" Grid.Column="1" BorderThickness="0" Name="x1y9" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="10" Grid.Column="1" BorderThickness="0" Name="x1y10" Click="handleFieldClick"></Button>
 
-        <Label Grid.Row="1" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">A</Label>
-        <Label Grid.Row="2" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">B</Label>
-        <Label Grid.Row="3" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">C</Label>
-        <Label Grid.Row="4" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">D</Label>
-        <Label Grid.Row="5" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">E</Label>
-        <Label Grid.Row="6" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">F</Label>
-        <Label Grid.Row="7" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">G</Label>
-        <Label Grid.Row="8" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">H</Label>
-        <Label Grid.Row="9" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">I</Label>
-        <Label Grid.Row="10" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">J</Label>
+            <Button Background="Green" Grid.Row="1" Grid.Column="2" BorderThickness="0"  Name="x2y1" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="2" Grid.Column="2" BorderThickness="0"  Name="x2y2" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="3" Grid.Column="2" BorderThickness="0"  Name="x2y3" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="4" Grid.Column="2" BorderThickness="0"  Name="x2y4" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="5" Grid.Column="2" BorderThickness="0"  Name="x2y5" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="6" Grid.Column="2" BorderThickness="0"  Name="x2y6" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="7" Grid.Column="2" BorderThickness="0"  Name="x2y7" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="8" Grid.Column="2" BorderThickness="0"  Name="x2y8" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="9" Grid.Column="2" BorderThickness="0"  Name="x2y9" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="10" Grid.Column="2" BorderThickness="0"  Name="x2y10" Click="handleFieldClick"></Button>
 
-        <Button Background="Green" Grid.Row="1" Grid.Column="1" BorderThickness="0" Name="x1y1" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="2" Grid.Column="1" BorderThickness="0" Name="x1y2" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="3" Grid.Column="1" BorderThickness="0" Name="x1y3" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="4" Grid.Column="1" BorderThickness="0" Name="x1y4" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="5" Grid.Column="1" BorderThickness="0" Name="x1y5" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="6" Grid.Column="1" BorderThickness="0" Name="x1y6" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="7" Grid.Column="1" BorderThickness="0" Name="x1y7" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="8" Grid.Column="1" BorderThickness="0" Name="x1y8" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="9" Grid.Column="1" BorderThickness="0" Name="x1y9" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="10" Grid.Column="1" BorderThickness="0" Name="x1y10" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="1" Grid.Column="3" BorderThickness="0" Name="x3y1" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="2" Grid.Column="3" BorderThickness="0" Name="x3y2" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="3" Grid.Column="3" BorderThickness="0" Name="x3y3" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="4" Grid.Column="3" BorderThickness="0" Name="x3y4" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="5" Grid.Column="3" BorderThickness="0" Name="x3y5" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="6" Grid.Column="3" BorderThickness="0" Name="x3y6" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="7" Grid.Column="3" BorderThickness="0" Name="x3y7" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="8" Grid.Column="3" BorderThickness="0" Name="x3y8" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="9" Grid.Column="3" BorderThickness="0" Name="x3y9" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="10" Grid.Column="3" BorderThickness="0" Name="x3y10" Click="handleFieldClick"></Button>
 
-        <Button Background="Green" Grid.Row="1" Grid.Column="2" BorderThickness="0"  Name="x2y1" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="2" Grid.Column="2" BorderThickness="0"  Name="x2y2" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="3" Grid.Column="2" BorderThickness="0"  Name="x2y3" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="4" Grid.Column="2" BorderThickness="0"  Name="x2y4" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="5" Grid.Column="2" BorderThickness="0"  Name="x2y5" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="6" Grid.Column="2" BorderThickness="0"  Name="x2y6" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="7" Grid.Column="2" BorderThickness="0"  Name="x2y7" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="8" Grid.Column="2" BorderThickness="0"  Name="x2y8" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="9" Grid.Column="2" BorderThickness="0"  Name="x2y9" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="10" Grid.Column="2" BorderThickness="0"  Name="x2y10" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="1" Grid.Column="4" BorderThickness="0" Name="x4y1" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="2" Grid.Column="4" BorderThickness="0" Name="x4y2" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="3" Grid.Column="4" BorderThickness="0" Name="x4y3" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="4" Grid.Column="4" BorderThickness="0" Name="x4y4" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="5" Grid.Column="4" BorderThickness="0" Name="x4y5" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="6" Grid.Column="4" BorderThickness="0" Name="x4y6" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="7" Grid.Column="4" BorderThickness="0" Name="x4y7" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="8" Grid.Column="4" BorderThickness="0" Name="x4y8" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="9" Grid.Column="4" BorderThickness="0" Name="x4y9" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="10" Grid.Column="4" BorderThickness="0" Name="x4y10" Click="handleFieldClick"></Button>
 
-        <Button Background="Green" Grid.Row="1" Grid.Column="3" BorderThickness="0" Name="x3y1" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="2" Grid.Column="3" BorderThickness="0" Name="x3y2" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="3" Grid.Column="3" BorderThickness="0" Name="x3y3" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="4" Grid.Column="3" BorderThickness="0" Name="x3y4" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="5" Grid.Column="3" BorderThickness="0" Name="x3y5" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="6" Grid.Column="3" BorderThickness="0" Name="x3y6" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="7" Grid.Column="3" BorderThickness="0" Name="x3y7" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="8" Grid.Column="3" BorderThickness="0" Name="x3y8" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="9" Grid.Column="3" BorderThickness="0" Name="x3y9" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="10" Grid.Column="3" BorderThickness="0" Name="x3y10" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="1" Grid.Column="5" BorderThickness="0" Name="x5y1" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="2" Grid.Column="5" BorderThickness="0" Name="x5y2" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="3" Grid.Column="5" BorderThickness="0" Name="x5y3" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="4" Grid.Column="5" BorderThickness="0" Name="x5y4" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="5" Grid.Column="5" BorderThickness="0" Name="x5y5" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="6" Grid.Column="5" BorderThickness="0" Name="x5y6" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="7" Grid.Column="5" BorderThickness="0" Name="x5y7" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="8" Grid.Column="5" BorderThickness="0" Name="x5y8" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="9" Grid.Column="5" BorderThickness="0" Name="x5y9" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="10" Grid.Column="5" BorderThickness="0" Name="x5y10" Click="handleFieldClick"></Button>
 
-        <Button Background="Green" Grid.Row="1" Grid.Column="4" BorderThickness="0" Name="x4y1" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="2" Grid.Column="4" BorderThickness="0" Name="x4y2" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="3" Grid.Column="4" BorderThickness="0" Name="x4y3" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="4" Grid.Column="4" BorderThickness="0" Name="x4y4" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="5" Grid.Column="4" BorderThickness="0" Name="x4y5" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="6" Grid.Column="4" BorderThickness="0" Name="x4y6" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="7" Grid.Column="4" BorderThickness="0" Name="x4y7" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="8" Grid.Column="4" BorderThickness="0" Name="x4y8" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="9" Grid.Column="4" BorderThickness="0" Name="x4y9" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="10" Grid.Column="4" BorderThickness="0" Name="x4y10" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="1" Grid.Column="6" BorderThickness="0" Name="x6y1" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="2" Grid.Column="6" BorderThickness="0" Name="x6y2" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="3" Grid.Column="6" BorderThickness="0" Name="x6y3" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="4" Grid.Column="6" BorderThickness="0" Name="x6y4" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="5" Grid.Column="6" BorderThickness="0" Name="x6y5" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="6" Grid.Column="6" BorderThickness="0" Name="x6y6" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="7" Grid.Column="6" BorderThickness="0" Name="x6y7" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="8" Grid.Column="6" BorderThickness="0" Name="x6y8" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="9" Grid.Column="6" BorderThickness="0" Name="x6y9" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="10" Grid.Column="6" BorderThickness="0" Name="x6y10" Click="handleFieldClick"></Button>
 
-        <Button Background="Green" Grid.Row="1" Grid.Column="5" BorderThickness="0" Name="x5y1" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="2" Grid.Column="5" BorderThickness="0" Name="x5y2" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="3" Grid.Column="5" BorderThickness="0" Name="x5y3" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="4" Grid.Column="5" BorderThickness="0" Name="x5y4" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="5" Grid.Column="5" BorderThickness="0" Name="x5y5" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="6" Grid.Column="5" BorderThickness="0" Name="x5y6" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="7" Grid.Column="5" BorderThickness="0" Name="x5y7" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="8" Grid.Column="5" BorderThickness="0" Name="x5y8" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="9" Grid.Column="5" BorderThickness="0" Name="x5y9" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="10" Grid.Column="5" BorderThickness="0" Name="x5y10" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="1" Grid.Column="7" BorderThickness="0" Name="x7y1" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="2" Grid.Column="7" BorderThickness="0" Name="x7y2" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="3" Grid.Column="7" BorderThickness="0" Name="x7y3" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="4" Grid.Column="7" BorderThickness="0" Name="x7y4" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="5" Grid.Column="7" BorderThickness="0" Name="x7y5" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="6" Grid.Column="7" BorderThickness="0" Name="x7y6" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="7" Grid.Column="7" BorderThickness="0" Name="x7y7" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="8" Grid.Column="7" BorderThickness="0" Name="x7y8" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="9" Grid.Column="7" BorderThickness="0" Name="x7y9" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="10" Grid.Column="7" BorderThickness="0" Name="x7y10" Click="handleFieldClick"></Button>
 
-        <Button Background="Green" Grid.Row="1" Grid.Column="6" BorderThickness="0" Name="x6y1" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="2" Grid.Column="6" BorderThickness="0" Name="x6y2" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="3" Grid.Column="6" BorderThickness="0" Name="x6y3" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="4" Grid.Column="6" BorderThickness="0" Name="x6y4" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="5" Grid.Column="6" BorderThickness="0" Name="x6y5" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="6" Grid.Column="6" BorderThickness="0" Name="x6y6" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="7" Grid.Column="6" BorderThickness="0" Name="x6y7" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="8" Grid.Column="6" BorderThickness="0" Name="x6y8" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="9" Grid.Column="6" BorderThickness="0" Name="x6y9" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="10" Grid.Column="6" BorderThickness="0" Name="x6y10" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="1" Grid.Column="8" BorderThickness="0" Name="x8y1" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="2" Grid.Column="8" BorderThickness="0" Name="x8y2" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="3" Grid.Column="8" BorderThickness="0" Name="x8y3" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="4" Grid.Column="8" BorderThickness="0" Name="x8y4" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="5" Grid.Column="8" BorderThickness="0" Name="x8y5" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="6" Grid.Column="8" BorderThickness="0" Name="x8y6" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="7" Grid.Column="8" BorderThickness="0" Name="x8y7" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="8" Grid.Column="8" BorderThickness="0" Name="x8y8" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="9" Grid.Column="8" BorderThickness="0" Name="x8y9" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="10" Grid.Column="8" BorderThickness="0" Name="x8y10" Click="handleFieldClick"></Button>
 
-        <Button Background="Green" Grid.Row="1" Grid.Column="7" BorderThickness="0" Name="x7y1" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="2" Grid.Column="7" BorderThickness="0" Name="x7y2" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="3" Grid.Column="7" BorderThickness="0" Name="x7y3" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="4" Grid.Column="7" BorderThickness="0" Name="x7y4" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="5" Grid.Column="7" BorderThickness="0" Name="x7y5" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="6" Grid.Column="7" BorderThickness="0" Name="x7y6" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="7" Grid.Column="7" BorderThickness="0" Name="x7y7" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="8" Grid.Column="7" BorderThickness="0" Name="x7y8" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="9" Grid.Column="7" BorderThickness="0" Name="x7y9" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="10" Grid.Column="7" BorderThickness="0" Name="x7y10" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="1" Grid.Column="9" BorderThickness="0" Name="x9y1" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="2" Grid.Column="9" BorderThickness="0" Name="x9y2" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="3" Grid.Column="9" BorderThickness="0" Name="x9y3" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="4" Grid.Column="9" BorderThickness="0" Name="x9y4" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="5" Grid.Column="9" BorderThickness="0" Name="x9y5" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="6" Grid.Column="9" BorderThickness="0" Name="x9y6" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="7" Grid.Column="9" BorderThickness="0" Name="x9y7" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="8" Grid.Column="9" BorderThickness="0" Name="x9y8" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="9" Grid.Column="9" BorderThickness="0" Name="x9y9" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="10" Grid.Column="9" BorderThickness="0" Name="x9y10" Click="handleFieldClick"></Button>
 
-        <Button Background="Green" Grid.Row="1" Grid.Column="8" BorderThickness="0" Name="x8y1" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="2" Grid.Column="8" BorderThickness="0" Name="x8y2" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="3" Grid.Column="8" BorderThickness="0" Name="x8y3" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="4" Grid.Column="8" BorderThickness="0" Name="x8y4" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="5" Grid.Column="8" BorderThickness="0" Name="x8y5" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="6" Grid.Column="8" BorderThickness="0" Name="x8y6" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="7" Grid.Column="8" BorderThickness="0" Name="x8y7" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="8" Grid.Column="8" BorderThickness="0" Name="x8y8" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="9" Grid.Column="8" BorderThickness="0" Name="x8y9" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="10" Grid.Column="8" BorderThickness="0" Name="x8y10" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="1" Grid.Column="10" BorderThickness="0" Name="x10y1" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="2" Grid.Column="10" BorderThickness="0" Name="x10y2" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="3" Grid.Column="10" BorderThickness="0" Name="x10y3" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="4" Grid.Column="10" BorderThickness="0" Name="x10y4" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="5" Grid.Column="10" BorderThickness="0" Name="x10y5" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="6" Grid.Column="10" BorderThickness="0" Name="x10y6" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="7" Grid.Column="10" BorderThickness="0" Name="x10y7" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="8" Grid.Column="10" BorderThickness="0" Name="x10y8" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="9" Grid.Column="10" BorderThickness="0" Name="x10y9" Click="handleFieldClick"></Button>
+            <Button Background="Green" Grid.Row="10" Grid.Column="10" BorderThickness="0" Name="x10y10" Click="handleFieldClick"></Button>
+        </Grid>
 
-        <Button Background="Green" Grid.Row="1" Grid.Column="9" BorderThickness="0" Name="x9y1" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="2" Grid.Column="9" BorderThickness="0" Name="x9y2" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="3" Grid.Column="9" BorderThickness="0" Name="x9y3" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="4" Grid.Column="9" BorderThickness="0" Name="x9y4" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="5" Grid.Column="9" BorderThickness="0" Name="x9y5" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="6" Grid.Column="9" BorderThickness="0" Name="x9y6" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="7" Grid.Column="9" BorderThickness="0" Name="x9y7" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="8" Grid.Column="9" BorderThickness="0" Name="x9y8" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="9" Grid.Column="9" BorderThickness="0" Name="x9y9" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="10" Grid.Column="9" BorderThickness="0" Name="x9y10" Click="handleFieldClick"></Button>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.10*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" BorderThickness="0" x:Name="scoreboard"></Label>
+            <TextBlock Grid.Column="1" x:Name="maintext" Loaded="Output_Loaded" Text="" FontSize="18" Foreground="Black" TextDecorations="{x:Null}" FontFamily="Arial" TextAlignment="Center"/>
 
-        <Button Background="Green" Grid.Row="1" Grid.Column="10" BorderThickness="0" Name="x10y1" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="2" Grid.Column="10" BorderThickness="0" Name="x10y2" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="3" Grid.Column="10" BorderThickness="0" Name="x10y3" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="4" Grid.Column="10" BorderThickness="0" Name="x10y4" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="5" Grid.Column="10" BorderThickness="0" Name="x10y5" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="6" Grid.Column="10" BorderThickness="0" Name="x10y6" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="7" Grid.Column="10" BorderThickness="0" Name="x10y7" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="8" Grid.Column="10" BorderThickness="0" Name="x10y8" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="9" Grid.Column="10" BorderThickness="0" Name="x10y9" Click="handleFieldClick"></Button>
-        <Button Background="Green" Grid.Row="10" Grid.Column="10" BorderThickness="0" Name="x10y10" Click="handleFieldClick"></Button>
+        </Grid>
+
     </Grid>
 </Window>
