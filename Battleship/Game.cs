@@ -17,7 +17,7 @@ namespace Battleship
         public Game()
         {
             _radarBoard = new Board(10, 10);
-            ShipFactory.FillBoardRandomly(_radarBoard);
+            ShipFactory.FillBoardRandomly(_radarBoard, 1, 2, 3, 4);
         }
 
         public HitResult ShootOpponent(Coordinate hitCoordinate)
@@ -27,6 +27,7 @@ namespace Battleship
             if (_hits >= 30)
             {
                 _isGameWon = true;
+                // add text output and end game --> ask user to restart or end game.
             }
 
             if (field.IsShip && !field.IsRevealed)

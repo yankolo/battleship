@@ -76,6 +76,7 @@ namespace battleships
 
             if (hitResult.Equals(HitResult.ShipShot))
             {
+                //should be added in the game class
                 this.output.Text = "That's a hit!";
 
                 BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/red.png"));
@@ -85,6 +86,7 @@ namespace battleships
             }
             else if (hitResult.Equals(HitResult.WaterShot))
             {
+                //should be added in the game class
                 this.output.Text = "That was a shot in the water!";
 
                 BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/blue.png"));
@@ -94,10 +96,11 @@ namespace battleships
             }
             else if (hitResult.Equals(HitResult.AlreadyRevealed))
             {
+                //should be added in the game class 
                 this.output.Text = "You already shot there.";
             }
             scoreboard.Content = "shots:\r\n" + _game.Shots;
-
+            // To be done in the game class --> since the game should determine when a player won
             if (_game.IsGameWOn)
             {
                 this.output.Text = "Congratulations you sunk every ship";
