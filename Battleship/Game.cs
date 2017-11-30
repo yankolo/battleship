@@ -17,7 +17,7 @@ namespace Battleship
         public Game()
         {
             _radarBoard = new Board(10, 10);
-            ShipFactory.FillBoardRandomly(_radarBoard, 1, 2, 3, 4);
+            ShipFactory.FillBoardRandomly(_radarBoard, 1, 1, 1, 0);
         }
 
         public HitResult ShootOpponent(Coordinate hitCoordinate)

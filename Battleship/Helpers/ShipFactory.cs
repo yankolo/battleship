@@ -26,26 +26,26 @@ namespace Battleship
                         case 1:
                             for (int j = 0; j < arrayNumberOfSize[i]; j++)
                             {
-                                GenerateShip(board, 4);
+                                ValidGenerateShip(board, 4);
                             }
                             break;
                         case 2:
                             for (int j = 0; j < arrayNumberOfSize[i]; j++)
                             {
-                                GenerateShip(board, 3);
+                                ValidGenerateShip(board, 3);
                             }
                             break;
                         case 3:
                             for (int j = 0; j < arrayNumberOfSize[i]; j++)
                             {
-                                GenerateShip(board, 2);
+                                ValidGenerateShip(board, 2);
                             }
                             break;
                     }
                 }
             } 
             // redo when failed to put ships
-            catch (Exception)
+            catch (NoShipSpaceException)
             {
                 ResetBoard(board);
                 FillBoardRandomly(board, numberOfSize5, numberOfSize4, numberOfSize3, numberOfSize2);
@@ -53,34 +53,30 @@ namespace Battleship
         }
 
         public static void ValidGenerateShip(Board board , int size)
-        {
-            try
-            { 
-                int trialCounter = 0;
-                bool valid = GenerateShip(board, size);
-                trialCounter++;
-                while (!valid)
-                {
-                    valid = GenerateShip(board , size, trialCounter);
-                }
-            }
-            catch (Exception e)
+        { 
+            int trialCounter = 0;
+            bool valid = GenerateShip(board, size);
+            trialCounter++;
+            while (!valid)
             {
-                throw e;
+                if (trialCounter > 100)
+                {
+
+                }
+                if (trialCounter > 200)
+                {
+                    throw new NoShipSpaceException();
+                }
+                valid = GenerateShip(board , size);
+                trialCounter++;
             }
         }
 
-        private static bool GenerateShip(Board board, int size, int trialCounter = 0)
+        private static bool GenerateShip(Board board, int size)
         {
-            if (trialCounter > 50)
-            {
-                throw new Exception("Cannot Place Ship");
-            }
-            trialCounter++;
-            
             Random rand = new Random();
-            int num1 = rand.Next(0, 10);
-            int num2 = rand.Next(0, 10);
+            int num1 = rand.Next(2, 7);
+            int num2 = rand.Next(2, 7);
 
             Direction direction;
 
@@ -119,32 +115,18 @@ namespace Battleship
             return true;
         }
 
-        private static void EnsureIsValidField(Board board, int x, int y, bool isSurrounding = false)
-        {
-            if (isSurrounding)
-            {
-                if (x > board.Width || y > board.Height)
-                    throw new Exception("Not Valid");
-            }
-            else if (!isSurrounding)
-            {
-                if (x >= board.Width || y >= board.Height)
-                    throw new Exception("Not Valid");
-            }
-            if (x < board.Width && y < board.Height)
-            {
-                if (board.GetField(new Coordinate(x, y)).IsShip == true)
-                    throw new Exception("Not Valid");
-            }
-        }
-
         private static bool VerifyShipPlacement(Board board, Coordinate coordinate)
         {
-            if (coordinate.X < board.Width && coordinate.Y < board.Height) { 
-            if  (board.GetField(coordinate).IsShip) { 
-                return false;
+            if (coordinate.X < board.Width && coordinate.Y < board.Height && coordinate.X >= 0 && coordinate.Y >= 0)
+            {
+                if (board.GetField(coordinate).IsShip)
+                {
+                    return false;
                 }
             }
+            else
+                return false;
+
             return true;
         }
 
@@ -159,7 +141,8 @@ namespace Battleship
 
             foreach (Coordinate surroundingCoordinate in surroundings)
             {
-                    if (VerifyShipPlacement(board, surroundingCoordinate) == false)
+                if (coordinate.X < board.Width && coordinate.Y < board.Height && coordinate.X >= 0 && coordinate.Y >= 0)
+                    if (board.GetField(coordinate).IsShip)
                         return false;
             }
             return true;
