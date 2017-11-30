@@ -140,8 +140,11 @@ namespace Battleship
 
         private static bool VerifyShipPlacement(Board board, Coordinate coordinate)
         {
-            if (board.GetField(coordinate).IsShip)
+            if (coordinate.X < board.Width && coordinate.Y < board.Height) { 
+            if  (board.GetField(coordinate).IsShip) { 
                 return false;
+                }
+            }
             return true;
         }
 
@@ -156,7 +159,6 @@ namespace Battleship
 
             foreach (Coordinate surroundingCoordinate in surroundings)
             {
-                if (surroundingCoordinate.X < board.Width && surroundingCoordinate.Y < board.Height)
                     if (VerifyShipPlacement(board, surroundingCoordinate) == false)
                         return false;
             }
