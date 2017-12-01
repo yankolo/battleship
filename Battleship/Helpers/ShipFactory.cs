@@ -10,30 +10,42 @@ namespace Battleship
     {
         public static void FillBoardRandomly(Board board, int numberOfSize5, int numberOfSize4, int numberOfSize3, int numberOfSize2)
         {
-            for (int i = 0; i < numberOfSize5; i++)
-                GenerateShip(board, 5);
-            for (int i = 0; i < numberOfSize4; i++)
-                GenerateShip(board, 4);
-            for (int i = 0; i < numberOfSize3; i++)
-                GenerateShip(board, 3);
-            for (int i = 0; i < numberOfSize2; i++)
-                GenerateShip(board, 2);
+            List<Ship> ships = CreateShips(numberOfSize5, numberOfSize4, numberOfSize3, numberOfSize2);
+
+            foreach (Ship ship in ships)
+                PlaceShip(board, ship);
+
         }
 
-        private static void GenerateShip(Board board, int size)
+        public static List<Ship> CreateShips(int numberOfSize5, int numberOfSize4, int numberOfSize3, int numberOfSize2)
+        {
+            List<Ship> ships = new List<Ship>();
+            for (int i = 0; i < numberOfSize5; i++)
+                ships.Add(new Ship(5));
+            for (int i = 0; i < numberOfSize4; i++)
+                ships.Add(new Ship(4));
+            for (int i = 0; i < numberOfSize3; i++)
+                ships.Add(new Ship(3));
+            for (int i = 0; i < numberOfSize2; i++)
+                ships.Add(new Ship(2));
+
+            return ships;
+        }
+
+        private static void PlaceShip(Board board, Ship ship)
         {
             Random rand = new Random();
 
-            List<Coordinate> horizontalCoordinates = FindPossiblePlacements(board, size, Direction.Horizontal);
-            List<Coordinate> verticalCoordinates = FindPossiblePlacements(board, size, Direction.Vertical);
+            List<Coordinate> horizontalCoordinates = FindPossiblePlacements(board, ship, Direction.Horizontal);
+            List<Coordinate> verticalCoordinates = FindPossiblePlacements(board, ship, Direction.Vertical);
 
             Direction direction = Direction.Horizontal; // Set to Horizontal by default
 
-            if (horizontalCoordinates.Count() == 0 && verticalCoordinates.Count() == 0)
+            if (horizontalCoordinates.Count == 0 && verticalCoordinates.Count == 0)
                 throw new NoShipSpaceException();
             else if (horizontalCoordinates.Count == 0)
                 direction = Direction.Vertical;
-            else if (verticalCoordinates.Count() == 0)
+            else if (verticalCoordinates.Count == 0)
                 direction = Direction.Horizontal;
             else
                 if (rand.Next(0, 2) == 0)
@@ -44,29 +56,29 @@ namespace Battleship
             Coordinate coordinate;
             if (direction.Equals(Direction.Horizontal))
             {
-                coordinate = horizontalCoordinates[rand.Next(horizontalCoordinates.Count())];
-                for (int i = 0; i < size; i++)
-                    board.GetField(new Coordinate(coordinate.X + i, coordinate.Y)).IsShip = true;
+                coordinate = horizontalCoordinates[rand.Next(horizontalCoordinates.Count)];
+                for (int i = 0; i < ship.Size; i++)
+                    board.GetField(new Coordinate(coordinate.X + i, coordinate.Y)).Ship = ship;
             }
             else
             {
-                coordinate = verticalCoordinates[rand.Next(verticalCoordinates.Count())];
-                for (int i = 0; i < size; i++)
-                    board.GetField(new Coordinate(coordinate.X, coordinate.Y + i)).IsShip = true;
+                coordinate = verticalCoordinates[rand.Next(verticalCoordinates.Count)];
+                for (int i = 0; i < ship.Size; i++)
+                    board.GetField(new Coordinate(coordinate.X, coordinate.Y + i)).Ship = ship;
             }
         }
 
-        private static bool VerifyShipPlacement(Board board, Coordinate coordinate, int size, Direction direction)
+        private static bool VerifyShipPlacement(Board board, Coordinate coordinate, Ship ship, Direction direction)
         {
             if (direction.Equals(Direction.Horizontal))
             {
-                for (int i = 0; i < size; i++)
+                for (int i = 0; i < ship.Size; i++)
                     if (VerifyField(board, new Coordinate(coordinate.X + i, coordinate.Y)) == false)
                         return false;
             }
             else if (direction.Equals(Direction.Vertical))
             {
-                for (int i = 0; i < size; i++)
+                for (int i = 0; i < ship.Size; i++)
                     if (VerifyField(board, new Coordinate(coordinate.X, coordinate.Y + i)) == false)
                         return false;
             }
@@ -89,13 +101,13 @@ namespace Battleship
             foreach (Coordinate surroundingCoordinate in surroundings)
             {
                 if (surroundingCoordinate.X < board.Width && surroundingCoordinate.Y < board.Height && surroundingCoordinate.X >= 0 && surroundingCoordinate.Y >= 0)
-                    if (board.GetField(surroundingCoordinate).IsShip)
+                    if (board.GetField(surroundingCoordinate).Ship != null)
                         return false;
             }
 
             if (center.X < board.Width && center.Y < board.Height && center.X >= 0 && center.Y >= 0)
             {
-                if (board.GetField(coordinate).IsShip)
+                if (board.GetField(coordinate).Ship != null)
                     return false;
             } 
             else
@@ -105,27 +117,27 @@ namespace Battleship
         }
 
 
-        private static List<Coordinate> FindPossiblePlacements(Board board, int size, Direction direction)
+        private static List<Coordinate> FindPossiblePlacements(Board board, Ship ship, Direction direction)
         {
             List<Coordinate> coordinateList = new List<Coordinate>();
 
             if (direction.Equals(Direction.Horizontal))
             {
                 for (int y = 0; y < board.Height; y++)
-                    for (int x = 0; x <= board.Width - size; x++)
+                    for (int x = 0; x <= board.Width - ship.Size; x++)
                     {
                         Coordinate coordinate = new Coordinate(x, y);
-                        if (VerifyShipPlacement(board, coordinate, size, direction) == true)
+                        if (VerifyShipPlacement(board, coordinate, ship, direction) == true)
                             coordinateList.Add(coordinate);
                     }
             }
             else if (direction.Equals(Direction.Vertical))
             {
-                for (int y = 0; y <= board.Height - size; y++)
+                for (int y = 0; y <= board.Height - ship.Size; y++)
                     for (int x = 0; x < board.Width; x++)
                     {
                         Coordinate coordinate = new Coordinate(x, y);
-                        if (VerifyShipPlacement(board, coordinate, size, direction) == true)
+                        if (VerifyShipPlacement(board, coordinate, ship, direction) == true)
                             coordinateList.Add(coordinate);
                     }
             }

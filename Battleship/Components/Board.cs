@@ -14,7 +14,6 @@ namespace Battleship
         private int _width;
         private int _height;
 
-
         public Board(int width, int height)
         {
             _width = width;
@@ -33,7 +32,7 @@ namespace Battleship
             {
                 for (int y = 0; y < _height; y++)
                 {
-                    _fields[x, y] = new Field(false);
+                    _fields[x, y] = new Field();
                 }
             }
         }

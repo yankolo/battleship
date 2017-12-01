@@ -11,6 +11,7 @@ namespace Battleship
         private Board _radarBoard;
         private int _shots = 0;
         private int _hits = 0;
+        private String _displayedText;
 
         private bool _isGameWon = false;
 
@@ -20,40 +21,52 @@ namespace Battleship
             ShipFactory.FillBoardRandomly(_radarBoard, 1, 2, 3, 4);
         }
 
-        public HitResult ShootOpponent(Coordinate hitCoordinate)
+        public void ShootOpponent(Coordinate hitCoordinate)
         {
             Field field = _radarBoard.GetField(hitCoordinate);
 
-            if (_hits >= 30)
-            {
-                _isGameWon = true;
-                // add text output and end game --> ask user to restart or end game.
-            }
-
-            if (field.IsShip && !field.IsRevealed)
+            if (field.Ship != null && !field.IsRevealed)
             {
                 field.IsRevealed = true;
                 _shots++;
                 _hits++;
-                return HitResult.ShipShot;
+                field.Ship.Size--;
+                if (field.Ship.Size ==0)
+                {
+                    _displayedText = "That's a hit! This " + field.Ship.NameShip + " has been sunked.";
+                }
+                else
+                {
+                   _displayedText = "That's a hit!";
+
+                }
+                
             }
-            else if (!field.IsShip && !field.IsRevealed)
+            else if (field.Ship == null && !field.IsRevealed)
             {
                 field.IsRevealed = true;
                 _shots++;
-                return HitResult.WaterShot;
+                _displayedText = "That was a shot in the water!";
             }
             else if (field.IsRevealed)
             {
-                return HitResult.AlreadyRevealed;
+                _displayedText = "You already shot there.";
             }
-            throw new Exception("Error shooting at " + hitCoordinate.X + ", " + hitCoordinate.Y);
+
+            if (_hits >= 30)
+            {
+                _isGameWon = true;
+                _displayedText = "Congratulations you sunk every ship";
+
+                // add text output and end game --> ask user to restart or end game.
+            }
         }
 
 
         public Board RadarBoard { get { return _radarBoard; } }
-        public int Shots { get { return _shots; } set { _shots = value; } }
-        public int Hits { get { return _hits; } set { _hits = value; } }
+        public int Shots { get { return _shots; } }
+        public int Hits { get { return _hits; } }
         public bool IsGameWOn { get { return _isGameWon; } }
+        public String DisplayedText { get { return _displayedText; } }
     }
 }

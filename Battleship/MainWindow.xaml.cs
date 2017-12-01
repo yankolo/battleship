@@ -22,8 +22,6 @@ namespace battleships
     /// </summary>
     public partial class MainWindow : Window
     {
-        private TextBlock output;
-
         private Game _game;
 
         /// <summary>
@@ -34,7 +32,7 @@ namespace battleships
             InitializeComponent();
             _game = new Game();
             InitializeGridCells();
-            scoreboard.Content = "shots:\r\n" + _game.Shots;
+            UpdateGUI();
         }
 
         private void InitializeGridCells()
@@ -48,20 +46,10 @@ namespace battleships
                     Grid.SetColumn(content, x);
                     Grid.SetRow(content, y);
 
-                    BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/green.png"));
-                    Image image = new Image();
-                    image.Source = bitmap;
-                    content.Content = image;
-
                     gameGrid.Children.Add(content);
 
                 }
             }
-        }
-
-        private void Output_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.output = sender as TextBlock;
         }
 
         /// <summary>
@@ -72,38 +60,49 @@ namespace battleships
             ContentControl b = (ContentControl)sender;
             Coordinate hitCoordinate = new Coordinate(Grid.GetColumn(b) - 1, Grid.GetRow(b) - 1);
 
-            HitResult hitResult = _game.ShootOpponent(hitCoordinate);
+            _game.ShootOpponent(hitCoordinate);
+            UpdateGUI();
+        }
 
-            if (hitResult.Equals(HitResult.ShipShot))
-            {
-                //should be added in the game class
-                this.output.Text = "That's a hit!";
-
-                BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/red.png"));
-                Image image = new Image();
-                image.Source = bitmap;
-                b.Content = image;
-            }
-            else if (hitResult.Equals(HitResult.WaterShot))
-            {
-                //should be added in the game class
-                this.output.Text = "That was a shot in the water!";
-
-                BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/blue.png"));
-                Image image = new Image();
-                image.Source = bitmap;
-                b.Content = image;
-            }
-            else if (hitResult.Equals(HitResult.AlreadyRevealed))
-            {
-                //should be added in the game class 
-                this.output.Text = "You already shot there.";
-            }
+        public void UpdateGUI()
+        {
+            maintext.Text = _game.DisplayedText;
             scoreboard.Content = "shots:\r\n" + _game.Shots;
-            // To be done in the game class --> since the game should determine when a player won
-            if (_game.IsGameWOn)
+
+            for (int i = 0; i < gameGrid.Children.Count; i++)
             {
-                this.output.Text = "Congratulations you sunk every ship";
+                UIElement e = gameGrid.Children[i];
+                if (e.GetType() == typeof(ContentControl))
+                {
+                    ContentControl content = (ContentControl)e;
+                    Coordinate coordinate = new Coordinate(Grid.GetColumn(content) - 1, Grid.GetRow(content) - 1);
+                    Field field = _game.RadarBoard.GetField(coordinate);
+
+                    if (field.IsRevealed == false)
+                    {
+                        BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/green.png"));
+                        Image image = new Image();
+                        image.Source = bitmap;
+                        content.Content = image;
+                    }
+                    else if (field.IsRevealed == true)
+                    {
+                        if (field.Ship == null)
+                        {
+                            BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/blue.png"));
+                            Image image = new Image();
+                            image.Source = bitmap;
+                            content.Content = image;
+                        }
+                        else
+                        {
+                            BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/red.png"));
+                            Image image = new Image();
+                            image.Source = bitmap;
+                            content.Content = image;
+                        }
+                    }
+                }
             }
         }
     }
