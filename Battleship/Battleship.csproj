@@ -57,7 +57,6 @@
     <Compile Include="Components\Ship.cs" />
     <Compile Include="Helpers\Direction.cs" />
     <Compile Include="Helpers\ShipFactory.cs" />
-    <Compile Include="Helpers\HitResult.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

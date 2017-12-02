@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Battleship
 {
-    class Ship
+    public class Ship
     {
         private int _size;
         private bool _isSunk;
@@ -19,9 +19,16 @@ namespace Battleship
             _name = ShipName(size);
         }
 
+        public Ship(Ship copy)
+        {
+            _size = copy.Size;
+            _isSunk = copy.IsSunk;
+            _name = copy.Name;
+        }
+
         public int Size { get { return _size; } set { _size = value; } }
         public bool IsSunk { get { return _isSunk; } set { _isSunk = value; } }
-        public String NameShip { get { return _name; } }
+        public String Name { get { return _name; } }
 
 
         private String ShipName(int size)

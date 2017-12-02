@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Battleship
 {
-    class NoShipSpaceException : Exception
+    public class NoShipSpaceException : Exception
     {
         public NoShipSpaceException() : base("No more space for ships on board")
         {

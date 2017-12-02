@@ -32,7 +32,7 @@ namespace battleships
             InitializeComponent();
             _game = new Game();
             InitializeGridCells();
-            UpdateGUI();
+            UpdateAllGUI(true);
         }
 
         private void InitializeGridCells()
@@ -42,12 +42,17 @@ namespace battleships
                 for (int y = 1; y < 11; y++)
                 {
                     ContentControl content = new ContentControl();
+                    Grid.SetColumn(content, x);
+                    Grid.SetRow(content, y);
+
+                    userGrid.Children.Add(content);
+
+                    content = new ContentControl();
                     content.MouseDown += new MouseButtonEventHandler(HandleFieldClick);
                     Grid.SetColumn(content, x);
                     Grid.SetRow(content, y);
 
-                    gameGrid.Children.Add(content);
-
+                    computerGrid.Children.Add(content);
                 }
             }
         }
@@ -59,24 +64,108 @@ namespace battleships
         {
             ContentControl b = (ContentControl)sender;
             Coordinate hitCoordinate = new Coordinate(Grid.GetColumn(b) - 1, Grid.GetRow(b) - 1);
+            Field field = _game.RadarBoard.GetField(hitCoordinate);
 
+            Field oldField = new Field(field); // Copy of field to track changes in UpdateField();
             _game.ShootOpponent(hitCoordinate);
-            UpdateGUI();
+            UpdateField(b, field, oldField);
+
+            UpdateAllGUI();
         }
 
-        public void UpdateGUI()
+        public void UpdateField(ContentControl content, Field newField, Field oldField)
+        {
+            if (oldField.IsRevealed != newField.IsRevealed)
+            {
+                if (newField.Ship == null) // If water
+                {
+                    BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/blue.png"));
+                    Image image = new Image();
+                    image.Source = bitmap;
+                    content.Content = image;
+
+                    // Code to display animation and sound when ship is hit
+                }
+                else // If ship
+                {
+                    BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/red.png"));
+                    Image image = new Image();
+                    image.Source = bitmap;
+                    content.Content = image;
+
+                    // Code to display animation and sound when water is hit
+                }
+            }
+            else
+            {
+                // Code to display sound (and animation if needed) when trying to hit
+                // something that was already hit
+            }
+
+        }
+
+
+        public void UpdateAllGUI(bool shouldUpdateFields = false)
         {
             maintext.Text = _game.DisplayedText;
             scoreboard.Content = "shots:\r\n" + _game.Shots;
 
-            for (int i = 0; i < gameGrid.Children.Count; i++)
+            if (shouldUpdateFields == true)
             {
-                UIElement e = gameGrid.Children[i];
+                UpdateGUICompFields();
+                UpdateGUIUserFields();
+            }
+        }
+
+        private void UpdateGUICompFields()
+        {
+            for (int i = 0; i < computerGrid.Children.Count; i++)
+            {
+                UIElement e = computerGrid.Children[i];
                 if (e.GetType() == typeof(ContentControl))
                 {
                     ContentControl content = (ContentControl)e;
                     Coordinate coordinate = new Coordinate(Grid.GetColumn(content) - 1, Grid.GetRow(content) - 1);
                     Field field = _game.RadarBoard.GetField(coordinate);
+
+                    if (field.IsRevealed == false)
+                    {
+                        BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/green.png"));
+                        Image image = new Image();
+                        image.Source = bitmap;
+                        content.Content = image;
+                    }
+                    else if (field.IsRevealed == true)
+                    {
+                        if (field.Ship == null)
+                        {
+                            BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/blue.png"));
+                            Image image = new Image();
+                            image.Source = bitmap;
+                            content.Content = image;
+                        }
+                        else
+                        {
+                            BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/red.png"));
+                            Image image = new Image();
+                            image.Source = bitmap;
+                            content.Content = image;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void UpdateGUIUserFields()
+        {
+            for (int i = 0; i < userGrid.Children.Count; i++)
+            {
+                UIElement e = userGrid.Children[i];
+                if (e.GetType() == typeof(ContentControl))
+                {
+                    ContentControl content = (ContentControl)e;
+                    Coordinate coordinate = new Coordinate(Grid.GetColumn(content) - 1, Grid.GetRow(content) - 1);
+                    Field field = _game.UserBoard.GetField(coordinate);
 
                     if (field.IsRevealed == false)
                     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Battleship
 {
-    static class ShipFactory
+    public static class ShipFactory
     {
         public static void FillBoardRandomly(Board board, int numberOfSize5, int numberOfSize4, int numberOfSize3, int numberOfSize2)
         {
@@ -87,7 +87,12 @@ namespace Battleship
 
             return true;
         }
-
+        /**
+         *This method can also be use to assure that the user placed a valid ship on the board.
+         *This method is used to assure that the placement 
+         * 
+         * 
+         **/
         private static bool VerifyField(Board board, Coordinate coordinate)
         {
             Coordinate center = new Coordinate(coordinate.X, coordinate.Y);

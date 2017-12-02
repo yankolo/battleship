@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Battleship
 {
-    class Game
+   public class Game
     {
+        private Board _userBoard;
         private Board _radarBoard;
         private int _shots = 0;
         private int _hits = 0;
@@ -17,8 +18,10 @@ namespace Battleship
 
         public Game()
         {
-            _radarBoard = new Board(10, 10);
+            _userBoard = new Board(10, 10, true);
+            _radarBoard = new Board(10, 10, false);
             ShipFactory.FillBoardRandomly(_radarBoard, 1, 2, 3, 4);
+            ShipFactory.FillBoardRandomly(_userBoard, 1, 2, 3, 4);
         }
 
         public void ShootOpponent(Coordinate hitCoordinate)
@@ -33,7 +36,7 @@ namespace Battleship
                 field.Ship.Size--;
                 if (field.Ship.Size ==0)
                 {
-                    _displayedText = "That's a hit! This " + field.Ship.NameShip + " has been sunked.";
+                    _displayedText = "That's a hit! This " + field.Ship.Name + " has been sunked.";
                 }
                 else
                 {
@@ -64,6 +67,7 @@ namespace Battleship
 
 
         public Board RadarBoard { get { return _radarBoard; } }
+        public Board UserBoard { get { return _userBoard; } }
         public int Shots { get { return _shots; } }
         public int Hits { get { return _hits; } }
         public bool IsGameWOn { get { return _isGameWon; } }
