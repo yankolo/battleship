@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AI\EasyAI.cs" />
     <Compile Include="Components\Ship.cs" />
     <Compile Include="Helpers\Direction.cs" />
     <Compile Include="Helpers\ShipFactory.cs" />

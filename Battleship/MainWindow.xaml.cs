@@ -108,7 +108,7 @@ namespace battleships
         public void UpdateAllGUI(bool shouldUpdateFields = false)
         {
             maintext.Text = _game.DisplayedText;
-            scoreboard.Content = "shots:\r\n" + _game.Shots;
+            scoreboard.Content = "shots:\r\n" + _game.UserShots;
 
             if (shouldUpdateFields == true)
             {
