@@ -30,7 +30,7 @@ namespace battleships
         public MainWindow()
         {
             InitializeComponent();
-            _game = new Game();
+            _game = new Game(Difficulty.Easy);
             InitializeGridCells();
             UpdateAllGUI(true);
         }
@@ -68,6 +68,7 @@ namespace battleships
 
             Field oldField = new Field(field); // Copy of field to track changes in UpdateField();
             _game.ShootOpponent(hitCoordinate);
+            _game.ShootUser();
             UpdateField(b, field, oldField);
 
             UpdateAllGUI();
@@ -107,8 +108,10 @@ namespace battleships
 
         public void UpdateAllGUI(bool shouldUpdateFields = false)
         {
-            maintext.Text = _game.DisplayedText;
-            scoreboard.Content = "shots:\r\n" + _game.UserShots;
+            userText.Text = _game.DisplayedUserText;
+            cpuText.Text = _game.DisplayedCPUText;
+            userScoreboard.Content = "shots:\r\n" + _game.UserShots;
+            cpuScoreboard.Content = "shots:\r\n" + _game.CpuShots;
 
             if (shouldUpdateFields == true)
             {

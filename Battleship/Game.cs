@@ -14,21 +14,37 @@ namespace Battleship
         private int _userHits = 0;
         private int _cpuShots = 0;
         private int _cpuHits = 0;
-        private String _displayedText;
+        private String _displayedUserText;
+        private String _displayedCPUText;
+        private IArtificialIntelligence _AI;
 
-        private bool _isGameWon = false;
+        private bool? _isGameWon;
 
-        public Game()
+        public Game(Difficulty difficulty)
         {
             _userBoard = new Board(10, 10, true);
             _radarBoard = new Board(10, 10, false);
             ShipFactory.FillBoardRandomly(_radarBoard, 1, 2, 3, 4);
             ShipFactory.FillBoardRandomly(_userBoard, 1, 2, 3, 4);
+
+            switch (difficulty)
+            {
+                case Difficulty.Easy:
+                    _AI = new EasyAI(_userBoard);
+                    break;
+                case Difficulty.Medium:
+                    break;
+                case Difficulty.Hard:
+                    break;
+            }
         }
 
         public void ShootOpponent(Coordinate hitCoordinate)
         {
-            Field field = _userBoard.GetField(hitCoordinate);
+            if (_isGameWon != null)
+                return;
+
+            Field field = _radarBoard.GetField(hitCoordinate);
 
             if (field.Ship != null && !field.IsRevealed)
             {
@@ -38,11 +54,11 @@ namespace Battleship
                 field.Ship.Size--;
                 if (field.Ship.Size ==0)
                 {
-                    _displayedText = "That's a hit! This " + field.Ship.Name + " has been sunked.";
+                    _displayedUserText = "That's a hit! This " + field.Ship.Name + " has been sunked.";
                 }
                 else
                 {
-                   _displayedText = "That's a hit!";
+                   _displayedUserText = "That's a hit!";
 
                 }
                 
@@ -51,51 +67,52 @@ namespace Battleship
             {
                 field.IsRevealed = true;
                 _userShots++;
-                _displayedText = "That was a shot in the water!";
+                _displayedUserText = "That was a shot in the water!";
             }
             else if (field.IsRevealed)
             {
-                _displayedText = "You already shot there.";
+                _displayedUserText = "You already shot there.";
             }
 
             if (_userHits >= 30)
             {
                 _isGameWon = true;
-                _displayedText = "Congratulations you sunk every ship";
+                _displayedUserText = "Congratulations you sunk every ship";
 
                 // add text output and end game --> ask user to restart or end game.
             }
         }
-        public void ShootUser(Coordinate hitCoordinate)
+        public void ShootUser()
         {
-            Field field = _userBoard.GetField(hitCoordinate);
+            if (_isGameWon != null)
+                return;
 
-            if (field.Ship != null && !field.IsRevealed)
+            Field field = _AI.Hit();
+
+            if (field.Ship != null )
             {
-                field.IsRevealed = true;
                 _cpuShots++;
                 _cpuHits++;
                 field.Ship.Size--;
                 if (field.Ship.Size == 0)
                 {
-                    _displayedText = "You have been hit!" + field.Ship.Name + " has been sunked.";
+                    _displayedCPUText = "You have been hit!" + field.Ship.Name + " has been sunked.";
                 }
                 else
                 {
-                    _displayedText = "You have been hit!";
+                    _displayedCPUText = "You have been hit!";
 
                 }
 
             }
-            else if (field.Ship == null && !field.IsRevealed)
+            else if (field.Ship == null )
             {
-                field.IsRevealed = true;
                 _cpuShots++;
             }
             if (_cpuHits >= 30)
             {
-                _isGameWon = true;
-                _displayedText = "Sorry the cpu destroyed every ship you have :(";
+                _isGameWon = false;
+                _displayedCPUText = "Sorry the cpu destroyed every ship you have :(";
 
                 // add text output and end game --> ask user to restart or end game.
             }
@@ -108,7 +125,8 @@ namespace Battleship
         public int UserHits { get { return _userHits; } }
         public int CpuShots { get { return _cpuShots; } }
         public int CpuHits { get { return _cpuHits; } }
-        public bool IsGameWOn { get { return _isGameWon; } }
-        public String DisplayedText { get { return _displayedText; } }
+        public bool? IsGameWOn { get { return _isGameWon; } }
+        public String DisplayedUserText { get { return _displayedUserText; } }
+        public String DisplayedCPUText { get { return _displayedCPUText; } }
     }
 }
