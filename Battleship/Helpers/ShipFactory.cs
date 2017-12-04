@@ -93,7 +93,7 @@ namespace Battleship
          * 
          * 
          **/
-        private static bool VerifyField(Board board, Coordinate coordinate)
+        public static bool VerifyField(Board board, Coordinate coordinate)
         {
             Coordinate center = new Coordinate(coordinate.X, coordinate.Y);
             Coordinate left = new Coordinate(coordinate.X - 1, coordinate.Y);

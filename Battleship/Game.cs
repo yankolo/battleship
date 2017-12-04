@@ -96,19 +96,25 @@ namespace Battleship
                 field.Ship.Size--;
                 if (field.Ship.Size == 0)
                 {
+					field.IsHit = true;
                     _displayedCPUText = "You have been hit!" + field.Ship.Name + " has been sunked.";
                 }
                 else
                 {
-                    _displayedCPUText = "You have been hit!";
+
+					field.IsHit = true;
+				   _displayedCPUText = "You have been hit!";
 
                 }
 
             }
             else if (field.Ship == null )
             {
+				//should add X over the water/field where the cpu made a hit. 
                 _cpuShots++;
-            }
+				field.IsHit = true;
+				_displayedCPUText = "You have not been hit!";
+			}
             if (_cpuHits >= 30)
             {
                 _isGameWon = false;
