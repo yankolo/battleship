@@ -61,6 +61,10 @@
     <Compile Include="Helpers\Difficulty.cs" />
     <Compile Include="Helpers\Direction.cs" />
     <Compile Include="Helpers\ShipFactory.cs" />
+    <Page Include="MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -73,6 +77,9 @@
     <Compile Include="Components\Field.cs" />
     <Compile Include="Common\Coordinate.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="MainMenu.xaml.cs">
+      <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -112,6 +119,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Ic_close_48px.svg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\88485_subitem_full.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
