@@ -4,52 +4,67 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Battleship"
-        mc:Ignorable="d"
-        Title="MainMenu" Height="496.866" Width="829.571" >
- 
+        gif:ImageBehavior.AnimateInDesignMode="True"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        Title="MainMenu" Height="496.866" Width="829.571" Loaded="Window_Loaded" Closed="Window_Closed">
+
     <Grid>
+
+
+
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-
+        <Image Name="BckGround_Img" gif:ImageBehavior.RepeatBehavior="Forever" gif:ImageBehavior.AnimatedSource="Assets/88485_subitem_full.gif" Grid.ColumnSpan="3" Stretch="UniformToFill"/>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50*"/>
                 <RowDefinition Height="71*"/>
             </Grid.RowDefinitions>
 
-            <Viewbox Grid.Row="0">
-                <TextBlock  TextWrapping="Wrap" Text="BattleShip" VerticalAlignment="Center" FontFamily="Rosewood Std Regular" HorizontalAlignment="Center"  />
-            </Viewbox>
+
+            <Image Grid.Row="0" Name="Title" Source="Assets/battleship_banner.png"/>
 
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="59*"/>
+                    <RowDefinition Height="34*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="32*"/>
+                    <RowDefinition Height="18*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="20*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.2*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="0.2*"/>
                 </Grid.ColumnDefinitions>
+                <Viewbox Grid.Row="0" Grid.Column="1"  >
+                    <TextBlock Name="Difficulty_Txt" Text="Choose a Difficulty" Visibility="Hidden"/>
+                </Viewbox>
 
-                <Button Grid.Row="1" Grid.Column="1" Name="Start_Game_Btn"  Content="Start Game"   BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1"/>
-
-                <Grid Grid.Row="3" Grid.Column="1">
+                <Button Grid.Row="1" Grid.Column="1" Name="Start_Game_Btn"  Content="Start Game"   BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1" Click="Start_Game_Btn_Click"/>
+                <Button Grid.Row="3" Grid.Column="1" Name="MediumDifficulty_Btn" Visibility="Hidden" Content="Medium" BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1"/>
+                <Button Grid.Row="5" Grid.Column="1" Name="HardDifficulty_Btn" Visibility="Hidden" Content="Hard"  BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1" />
+                <Button Grid.Row="1" Grid.Column="1" Name="EasyDifficulty_Btn" Visibility="Hidden" Content="Easy" BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1" />
+                <Grid Grid.Row="7" Grid.Column="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="0.1*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" Name="Help_Btn" Content="Help"  BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1"/>
-                    <Button Grid.Column="2" Name="Quit_Btn" Content="Quit"  BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1"/>
+                    <Button Grid.Column="0" Name="Help_Btn" Content="Help"  BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1" Click="Help_Btn_Click"/>
+                    <Button Grid.Column="2" Name="Quit_Btn" Content="Quit"  BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1" Click="Quit_Btn_Click"/>
                 </Grid>
+
+
 
             </Grid>
 
@@ -61,6 +76,9 @@
                 </Grid.ColumnDefinitions>
             </Grid>
         </Grid>
-        
+
+
+
+
     </Grid>
 </Window>
