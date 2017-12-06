@@ -77,14 +77,27 @@ namespace battleships
 				Field oldField = new Field(field); // Copy of field to track changes in UpdateField();
 				_game.ShootOpponent(hitCoordinate);
 				UpdateField(b, field, oldField);
-				UpdateAllGUI();
-				// add the dispatcher timer --> 
-				delayBeforeAIShoot = new DispatcherTimer( new TimeSpan(0, 0, 0, 0, 500) ,DispatcherPriority.Normal, DispatcherTimer_Tick, Dispatcher);
-				// enable all
-				delayBeforeAIShoot.Start();
 
-                StartTimer();
+                if (IsFieldStateChanged(field, oldField))
+                {
+				    UpdateAllGUI();
+				    // add the dispatcher timer --> 
+				    delayBeforeAIShoot = new DispatcherTimer( new TimeSpan(0, 0, 0, 0, 500) ,DispatcherPriority.Normal, DispatcherTimer_Tick, Dispatcher);
+				    // enable all
+				    delayBeforeAIShoot.Start();
+
+                    StartTimer();
+                }
             }
+        }
+
+        public bool IsFieldStateChanged(Field newField, Field oldField)
+        {
+            if (oldField.IsRevealed != newField.IsRevealed)
+            {
+                return true;
+            }
+            return false;
         }
 
 		private void StartTimer()
