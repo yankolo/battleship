@@ -10,10 +10,12 @@ namespace Battleship
     {
         public static void FillBoardRandomly(Board board, int numberOfSize5, int numberOfSize4, int numberOfSize3, int numberOfSize2)
         {
+            Random rand = new Random();
+
             List<Ship> ships = CreateShips(numberOfSize5, numberOfSize4, numberOfSize3, numberOfSize2);
 
             foreach (Ship ship in ships)
-                PlaceShip(board, ship);
+                PlaceShip(board, ship, rand);
 
         }
 
@@ -32,10 +34,8 @@ namespace Battleship
             return ships;
         }
 
-        private static void PlaceShip(Board board, Ship ship)
+        private static void PlaceShip(Board board, Ship ship, Random rand)
         {
-            Random rand = new Random();
-
             List<Coordinate> horizontalCoordinates = FindPossiblePlacements(board, ship, Direction.Horizontal);
             List<Coordinate> verticalCoordinates = FindPossiblePlacements(board, ship, Direction.Vertical);
 
@@ -48,10 +48,13 @@ namespace Battleship
             else if (verticalCoordinates.Count == 0)
                 direction = Direction.Horizontal;
             else
-                if (rand.Next(0, 2) == 0)
-                    direction = Direction.Horizontal;
-                else
+            {
+                int randomNumber = rand.Next(0, 1000);
+                if (randomNumber % 2 == 0)
                     direction = Direction.Vertical;
+                else
+                    direction = Direction.Horizontal;
+            }
 
             Coordinate coordinate;
             if (direction.Equals(Direction.Horizontal))
