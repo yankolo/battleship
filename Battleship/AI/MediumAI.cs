@@ -8,38 +8,44 @@ namespace Battleship
 {
 	public class MediumAI : IArtificialIntelligence
 	{
-		private Board _userBoard;
-		private List<Field> _fieldList;
+        private Board _userBoard;
+        private IArtificialIntelligence _easyAI;
+        private IArtificialIntelligence _hardAI;
+        private List<Field> _fieldList;
+        private List<Difficulty> _difficltyToUse;
 
-		public MediumAI(Board userBoard)
+        public MediumAI(Board userBoard)
 		{
-			_userBoard = userBoard;
+            _userBoard = userBoard;
 
-			_fieldList = new List<Field>();
-			for (int y = 0; y < _userBoard.Height; y++)
-				for (int x = 0; x < _userBoard.Width; x++)
-				{
-					Coordinate coordinate = new Coordinate(x, y);
-					_fieldList.Add(_userBoard.GetField(coordinate));
-				}
-		}
+            _easyAI = new EasyAI(userBoard);
+            _hardAI = new HardAI(userBoard);
 
+            _fieldList = new List<Field>();
+            for (int y = 0; y < _userBoard.Height; y++)
+                for (int x = 0; x < _userBoard.Width; x++)
+                {
+                    Coordinate coordinate = new Coordinate(x, y);
+                    _fieldList.Add(_userBoard.GetField(coordinate));
+                }
 
+            _difficltyToUse = new List<Difficulty>();
+            _difficltyToUse.Add(Difficulty.Hard);
+            _difficltyToUse.Add(Difficulty.Hard);
+            _difficltyToUse.Add(Difficulty.Hard);
+            _difficltyToUse.Add(Difficulty.Hard);
+            _difficltyToUse.Add(Difficulty.Easy);
+        }
 
+        public Field Hit()
+        {
+            Random rand = new Random();
+            Difficulty difficutly = _difficltyToUse[rand.Next(0, _difficltyToUse.Count)];
 
-		public Field Hit()
-		{
-			//Use an algorithm that will determine if the field is a ship
-			//if a ship look around as soon as it is finds the another part of the ship continu hitting on the line until there's nothing 
-			return null;
-
-		}
-		public void DestroyBoat(Coordinate hitBoat)
-		{
-			//send a coordinate where the boat has been hit, and find where the the next ship is there.
-
-
-		}
-	
+            if (difficutly.Equals(Difficulty.Hard))
+                return _hardAI.Hit();
+            else
+                return _easyAI.Hit();
+        }
 	}
 }

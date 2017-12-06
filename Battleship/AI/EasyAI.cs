@@ -10,6 +10,7 @@ namespace Battleship
     {
         private Board _userBoard;
         private List<Field> _fieldList;
+        private List<Field> _notHitFieldsList;
 
         public EasyAI(Board userBoard)
         {
@@ -27,12 +28,16 @@ namespace Battleship
 
         public Field Hit()
         {
-            // Make an array list that contains all fields of the user board 
-            // generate random index to shoot on the board, once it hits remove that field from the list until every ship sunk.
+            // Fill array list that contains all fields that were not hit,
+            // generate random index to shoot on the board
+            _notHitFieldsList = new List<Field>();
 
+            foreach (Field field in _fieldList)
+                if (field.IsHit == false)
+                    _notHitFieldsList.Add(field);
+            
             Random rand = new Random();
-            Field randomField = _fieldList[rand.Next(0, _fieldList.Count)];
-            _fieldList.Remove(randomField);
+            Field randomField = _notHitFieldsList[rand.Next(0, _notHitFieldsList.Count)];
 
             return randomField;
         }

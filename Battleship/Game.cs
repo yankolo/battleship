@@ -33,8 +33,10 @@ namespace Battleship
                     _AI = new EasyAI(_userBoard);
                     break;
                 case Difficulty.Medium:
+                    _AI = new MediumAI(_userBoard);
                     break;
                 case Difficulty.Hard:
+                    _AI = new HardAI(_userBoard);
                     break;
             }
         }

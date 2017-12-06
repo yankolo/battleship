@@ -36,7 +36,7 @@ namespace battleships
 		public MainWindow()
         {
             InitializeComponent();
-            _game = new Game(Difficulty.Easy);
+            _game = new Game(Difficulty.Hard);
             InitializeGridCells();
             UpdateAllGUI(true);
 			StartTimer();
@@ -79,12 +79,12 @@ namespace battleships
 				UpdateField(b, field, oldField);
 				UpdateAllGUI();
 				// add the dispatcher timer --> 
-				delayBeforeAIShoot = new DispatcherTimer( new TimeSpan(0,0,2) ,DispatcherPriority.Normal, DispatcherTimer_Tick, Dispatcher);
+				delayBeforeAIShoot = new DispatcherTimer( new TimeSpan(0, 0, 0, 0, 500) ,DispatcherPriority.Normal, DispatcherTimer_Tick, Dispatcher);
 				// enable all
 				delayBeforeAIShoot.Start();
 
-
-			}
+                StartTimer();
+            }
         }
 
 		private void StartTimer()
@@ -96,7 +96,7 @@ namespace battleships
 		private void Timer_Tick(object sender, EventArgs e)
 		{
 			TimeSpan elapsed = DateTime.Now - startTime;
-			if (elapsed > new TimeSpan(0, 0, 0, 5, 0))
+			if (elapsed > new TimeSpan(0, 0, 0, 60, 0))
 			{
 				timerUserTurn.Stop();
 				_game.ShootUser();

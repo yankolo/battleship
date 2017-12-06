@@ -58,6 +58,7 @@
     <Compile Include="AI\EasyAI.cs" />
     <Compile Include="AI\MediumAI.cs" />
     <Compile Include="Components\Ship.cs" />
+    <Compile Include="AI\HardAI.cs" />
     <Compile Include="Helpers\Difficulty.cs" />
     <Compile Include="Helpers\Direction.cs" />
     <Compile Include="Helpers\ShipFactory.cs" />
