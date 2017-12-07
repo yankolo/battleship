@@ -64,6 +64,7 @@ namespace Battleship
             MainWindow dw = new MainWindow(game);
             StartWindow.mw = dw;
             ((ContentControl)MainMenu_Grd.Parent).Content = dw.Game_Grid;
+			StartWindow.mw._game.ResumeTimers();
         }
     }
 }

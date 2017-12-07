@@ -125,7 +125,8 @@ namespace Battleship
         private void DelayBeforeAIShoot_Tick(object sender, EventArgs e)
         {
             _delayBeforeAIShoot.Stop();
-            _timeForUserTurn.Stop();
+			if (_timeForUserTurn != null)
+				_timeForUserTurn.Stop();
             _timeForUserTurn = null;
 
             ShootUser();
@@ -248,6 +249,21 @@ namespace Battleship
             }
         }
 
+
+		public void ResumeTimers()
+		{
+			if (_currentTurn.Equals(Turn.Computer))
+			{
+				_delayBeforeAIShoot = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 500), DispatcherPriority.Normal, DelayBeforeAIShoot_Tick, Dispatcher.CurrentDispatcher);
+				_delayBeforeAIShoot.Start();
+			}
+			else
+			{
+				_timeForUserTurn = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 500), DispatcherPriority.Normal, TimeForUserTurn_Tick, Dispatcher.CurrentDispatcher);
+				_timeForUserTurn.Start();
+			}
+
+		}
 
         public Board RadarBoard { get { return _radarBoard; } }
         public Board UserBoard { get { return _userBoard; } }
