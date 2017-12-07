@@ -33,13 +33,14 @@ namespace battleships
 		/// <summary>
 		/// Setup basics and create game window
 		/// </summary>
-		public MainWindow()
+		public MainWindow(Difficulty difficulty, String userName)
         {
             InitializeComponent();
-            _game = new Game(Difficulty.Easy);
+            _game = new Game(difficulty, userName);
             InitializeGridCells();
             UpdateAllGUI(true);
 			StartTimer();
+            
         }
 
         private void InitializeGridCells()
@@ -260,5 +261,6 @@ namespace battleships
                 }
             }
         }
+       
     }
 }

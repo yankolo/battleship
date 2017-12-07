@@ -1,0 +1,45 @@
+﻿<Window x:Class="Battleship.InGameMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Battleship"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Title="InGameMenu" Height="261.702" Width="392.553">
+    <Grid Name="InGameMenu_Grd" Background="#FFAF8831">
+        <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.2*"/>
+            </Grid.ColumnDefinitions>
+        <Grid Grid.Column ="1" Name="Buttons_Grd">
+                <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="5*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="5*"/>
+                <RowDefinition Height="5*"/>
+
+
+            </Grid.RowDefinitions>
+            <Viewbox Grid.Row="1">
+                <TextBlock Name="GameMenu_Txt" Text="GameMenu" FontFamily="Agency FB"/>
+            </Viewbox>
+                <Button Grid.Row="3" Name="Resume_Btn" Content="Resume" Click="Resume_Btn_Click" />
+                <Button Grid.Row="5" Name="SaveQuit_Btn" Content="Save And Quit" />
+                <Button Grid.Row="7" Name="Quit_BtnBtn" Content="Exit To Desktop" Click="Quit_BtnBtn_Click" />
+                <Button Grid.Row="9" Name="ReturnToMainMenu_Btn" Content="Return To Main Menu" Click="ReturnToMainMenu_Btn_Click" />
+                
+            </Grid>
+        
+    </Grid>
+</Window>

@@ -1,0 +1,62 @@
+﻿<Window x:Class="Battleship.Difficulties"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Battleship"
+        mc:Ignorable="d"
+        Title="Difficulties" Height="591.489" Width="1147.915">
+    <Grid Name="Difficulties_Grd">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+
+        </Grid.ColumnDefinitions>
+
+        <Image Grid.ColumnSpan ="3" Name="Background_img" Source="Assets/UnderWater.jpg" Stretch="UniformToFill" Margin="0,0,10,0"/>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="1" Margin="0,10,0,0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="38*"/>
+                        <RowDefinition  Height="38*"/>
+                        <RowDefinition  Height="38*"/>
+                        <RowDefinition  Height="36*"/>
+                        <RowDefinition  Height="42*"/>
+                        <RowDefinition  Height="34*"/>
+                        <RowDefinition  Height="38*"/>
+                        <RowDefinition  Height="37*"/>
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Row="2" Name="MediumDifficulty_Btnn"  Content="Medium" BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1" Click="MediumDifficulty_Btnn_Click"/>
+                    <Button Grid.Row="4" Name="HardDifficulty_Btn"  Content="Hard"  BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1" Click="HardDifficulty_Btn_Click"/>
+                    <Button Grid.Row="0" Name="EasyDifficulty_Btn"  Content="Easy" BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1" Click="EasyDifficulty_Btn_Click"/>
+                    
+
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

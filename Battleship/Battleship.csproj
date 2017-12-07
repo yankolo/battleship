@@ -61,9 +61,29 @@
     <Compile Include="AI\EasyAI.cs" />
     <Compile Include="AI\MediumAI.cs" />
     <Compile Include="Components\Ship.cs" />
+    <Compile Include="Difficulties.xaml.cs">
+      <DependentUpon>Difficulties.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\Difficulty.cs" />
     <Compile Include="Helpers\Direction.cs" />
     <Compile Include="Helpers\ShipFactory.cs" />
+    <Compile Include="InGameMenu.xaml.cs">
+      <DependentUpon>InGameMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StartGameWindow.xaml.cs">
+      <DependentUpon>StartGameWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StartWindow.xaml.cs">
+      <DependentUpon>StartWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Difficulties.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InGameMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -87,6 +107,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="StartGameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StartWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\NoShipSpaceException.cs" />
@@ -126,6 +154,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\88485_subitem_full.gif" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\battleship_banner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\UnderWater.jpg" />
+    <Content Include="Sound\Two Steps From Hell - Archangel.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
