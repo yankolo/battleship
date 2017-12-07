@@ -19,6 +19,8 @@ using Battleship;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using WpfAnimatedGif;
+using System.Windows.Media.Animation;
 
 namespace Battleship
 {
@@ -50,34 +52,38 @@ namespace Battleship
             UpdateAllGUI(true);
         }
 
+
         private void InitializeGridCells()
         {
-            for (int x = 1; x < 11; x++)
+            for (int x = 0; x < 10; x++)
             {
-                for (int y = 1; y < 11; y++)
+                for (int y = 0; y < 10; y++)
                 {
-                    ContentControl content = new ContentControl();
-                    Grid.SetColumn(content, x);
-                    Grid.SetRow(content, y);
+                    Grid grid = new Grid();
+                    Grid.SetColumn(grid, x);
+                    Grid.SetRow(grid, y);
+                    grid.Background = Brushes.Transparent;
 
-                    userGrid.Children.Add(content);
+                    userGrid.Children.Add(grid);
 
-                    content = new ContentControl();
-                    content.MouseDown += new MouseButtonEventHandler(HandleFieldClick);
-                    Grid.SetColumn(content, x);
-                    Grid.SetRow(content, y);
+                    grid = new Grid();
+                    grid.MouseDown += new MouseButtonEventHandler(HandleFieldClick);
+                    Grid.SetColumn(grid, x);
+                    Grid.SetRow(grid, y);
+                    grid.Background = Brushes.Transparent;
 
-                    computerGrid.Children.Add(content);
+                    computerGrid.Children.Add(grid);
                 }
             }
         }
+
 
         /// <summary>
         /// Event Handler for GameUpdated
         /// 
         /// Calls the methods to update the GUI (UpdateField() and UpdateAllGUI)
         /// 
-        /// Before calling UpdateField, it finds the content control that represents the fields passed in the EventArgs
+        /// Before calling UpdateField, it finds the grid that represents the fields passed in the EventArgs
         /// 
         /// </summary>
         /// <param name="sender"></param>
@@ -87,8 +93,8 @@ namespace Battleship
             if (e.newField != null && e.oldField != null)
             {
                 Coordinate coordinate; // The coordinate of the field
-                Grid grid; // The grid that contains the content control representing the field
-                ContentControl fieldContentControl; // the content control representing the field
+                Grid grid; // The grid that contains the grid representing the field
+                Grid fieldGrid; // the grid representing the field
 
                 if (e.board == _game.RadarBoard)
                 {
@@ -101,24 +107,24 @@ namespace Battleship
                     grid = userGrid;
                 }
 
-                // Finding the content control representing the field
+                // Finding the grid representing the field
                 for (int i = 0; i < grid.Children.Count; i++)
                 {
                     UIElement element = grid.Children[i];
-                    if (element.GetType() == typeof(ContentControl))
+                    if (element.GetType() == typeof(Grid))
                     {
-                        ContentControl content = (ContentControl)element;
+                        Grid g = (Grid)element;
 
-                        if (Grid.GetRow(content) == coordinate.Y + 1 && Grid.GetColumn(content) == coordinate.X + 1)
+                        if (Grid.GetRow(g) == coordinate.Y && Grid.GetColumn(g) == coordinate.X)
                         {
-                            fieldContentControl = content;
-                            UpdateField(fieldContentControl, e.newField, e.oldField);
+                            fieldGrid = g;
+                            UpdateField(fieldGrid, e.newField, e.oldField);
                         }
                     }
                 }
             }
 
-            UpdateAllGUI(true); // SHOULD BE UpdateAllGUI(), IT IS  UpdateAllGUI(true) BECAUSE "X" ON HIT FIELDS ARE SET IN THIS METHOD
+            UpdateAllGUI(); // SHOULD BE UpdateAllGUI(), IT IS  UpdateAllGUI(true) BECAUSE "X" ON HIT FIELDS ARE SET IN THIS METHOD
         }
 
         /// <summary>
@@ -128,32 +134,40 @@ namespace Battleship
         {
             if (_game.IsGamePaused == false)
             {
-                ContentControl b = (ContentControl)sender;
-                Coordinate hitCoordinate = new Coordinate(Grid.GetColumn(b) - 1, Grid.GetRow(b) - 1);
+                Grid b = (Grid)sender;
+                Coordinate hitCoordinate = new Coordinate(Grid.GetColumn(b), Grid.GetRow(b));
 
                 _game.UpdateGame(hitCoordinate);
             }
         }
 
-		public void UpdateField(ContentControl content, Field newField, Field oldField)
+        public void UpdateField(Grid grid, Field newField, Field oldField)
         {
-            if (oldField.IsRevealed != newField.IsRevealed)
+            if ((oldField.IsHit != newField.IsHit) || (oldField.IsRevealed != newField.IsRevealed))
             {
                 if (newField.Ship == null) // If water
                 {
-                    BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/blue.png"));
-                    Image image = new Image();
-                    image.Source = bitmap;
-                    content.Content = image;
+                    Image img = new Image();
+                    grid.Children.Add(img);
+                    var image = new BitmapImage();
+                    image.BeginInit();
+                    image.UriSource = new Uri("pack://application:,,,/Assets/waterhit.gif");
+                    image.EndInit();
+                    ImageBehavior.SetAnimatedSource(img, image);
+                    ImageBehavior.SetRepeatBehavior(img, new RepeatBehavior(1));
 
                     // Code to display animation and sound when ship is hit
                 }
                 else // If ship
                 {
-                    BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/red.png"));
-                    Image image = new Image();
-                    image.Source = bitmap;
-                    content.Content = image;
+                    Image img = new Image();
+                    grid.Children.Add(img);
+                    var image = new BitmapImage();
+                    image.BeginInit();
+                    image.UriSource = new Uri("pack://application:,,,/Assets/shiphit.gif");
+                    image.EndInit();
+                    ImageBehavior.SetAnimatedSource(img, image);
+                    ImageBehavior.SetRepeatBehavior(img, new RepeatBehavior(1));
 
                     // Code to display animation and sound when water is hit
                 }
@@ -169,10 +183,10 @@ namespace Battleship
 
         public void UpdateAllGUI(bool shouldUpdateFields = false)
         {
-			userText.Text = _game.DisplayedUserText;
-			cpuText.Text = _game.DisplayedCPUText;
-			userScoreboard.Content = "shots:\r\n" + _game.UserShots;
-			cpuScoreboard.Content = "shots:\r\n" + _game.CpuShots;
+            userText.Text = _game.DisplayedUserText;
+            cpuText.Text = _game.DisplayedCPUText;
+            userScoreboard.Content = "shots:\r\n" + _game.UserShots;
+            cpuScoreboard.Content = "shots:\r\n" + _game.CpuShots;
 
             if (shouldUpdateFields == true)
             {
@@ -186,34 +200,40 @@ namespace Battleship
             for (int i = 0; i < computerGrid.Children.Count; i++)
             {
                 UIElement e = computerGrid.Children[i];
-                if (e.GetType() == typeof(ContentControl))
+                if (e.GetType() == typeof(Grid))
                 {
-                    ContentControl content = (ContentControl)e;
-                    Coordinate coordinate = new Coordinate(Grid.GetColumn(content) - 1, Grid.GetRow(content) - 1);
+                    Grid grid = (Grid)e;
+                    Coordinate coordinate = new Coordinate(Grid.GetColumn(grid), Grid.GetRow(grid));
                     Field field = _game.RadarBoard.GetField(coordinate);
 
                     if (field.IsRevealed == false)
                     {
-                        BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/green.png"));
+                        grid.Children.Clear();
+
+                        BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/transparent.png"));
                         Image image = new Image();
                         image.Source = bitmap;
-                        content.Content = image;
+                        grid.Children.Add(image);
                     }
                     else if (field.IsRevealed == true)
                     {
                         if (field.Ship == null)
                         {
-                            BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/blue.png"));
+                            grid.Children.Clear();
+
+                            BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/lastWaterHitFrame.gif"));
                             Image image = new Image();
                             image.Source = bitmap;
-                            content.Content = image;
+                            grid.Children.Add(image);
                         }
                         else
                         {
-                            BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/red.png"));
+                            grid.Children.Clear();
+
+                            BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/lastShipHitFrame.gif"));
                             Image image = new Image();
                             image.Source = bitmap;
-                            content.Content = image;
+                            grid.Children.Add(image);
                         }
                     }
                 }
@@ -225,56 +245,73 @@ namespace Battleship
             for (int i = 0; i < userGrid.Children.Count; i++)
             {
                 UIElement e = userGrid.Children[i];
-                if (e.GetType() == typeof(ContentControl))
+                if (e.GetType() == typeof(Grid))
                 {
-                    ContentControl content = (ContentControl)e;
-                    Coordinate coordinate = new Coordinate(Grid.GetColumn(content) - 1, Grid.GetRow(content) - 1);
+                    Grid grid = (Grid)e;
+                    Coordinate coordinate = new Coordinate(Grid.GetColumn(grid), Grid.GetRow(grid));
                     Field field = _game.UserBoard.GetField(coordinate);
                     if (field.IsRevealed == false)
                     {
-                        BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/green.png"));
+                        grid.Children.Clear();
+
+                        BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/transparent.png"));
                         Image image = new Image();
                         image.Source = bitmap;
-                        content.Content = image;
+                        grid.Children.Add(image);
                     }
                     else if (field.IsRevealed == true)
                     {
                         if (field.Ship == null)
                         {
-							if (field.IsHit == false)
-							{
-								BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/blue.png"));
-								Image image = new Image();
-								image.Source = bitmap;
-								content.Content = image;
-							}
-							else
-							{
-								BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/Ic_close_48px.svg.png"));
-								Image image = new Image();
-								image.Source = bitmap;
-								content.Content = image;
-							}
-                           
+                            if (field.IsHit == false)
+                            {
+                                grid.Children.Clear();
+
+                                BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/transparent.png"));
+                                Image image = new Image();
+                                image.Source = bitmap;
+                                grid.Children.Add(image);
+                            }
+                            else
+                            {
+                                grid.Children.Clear();
+
+                                BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/lastWaterHitFrame.gif"));
+                                Image image = new Image();
+                                image.Source = bitmap;
+                                grid.Children.Add(image);
+                            }
+
                         }
                         else
                         {
-							if (field.IsHit == false)
-							{
-								BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/red.png"));
-								Image image = new Image();
-								image.Source = bitmap;
-								content.Content = image;
-							}
-							else
-							{
-								BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/Ic_close_48px.svg.png"));
-								Image image = new Image();
-								image.Source = bitmap;
-								content.Content = image;
+                            if (field.IsHit == false)
+                            {
+                                grid.Children.Clear();
 
-							}
-                           
+                                BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/red.png"));
+                                Image image = new Image();
+                                image.Source = bitmap;
+                                grid.Children.Add(image);
+
+
+                            }
+                            else
+                            {
+                                grid.Children.Clear();
+
+                                BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/red.png"));
+                                Image image = new Image();
+                                image.Source = bitmap;
+                                grid.Children.Add(image);
+
+                                Image secondImage = new Image();
+                                secondImage.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/lastShipHitFrame.gif"));
+                                grid.Children.Add(secondImage);
+                                // ADD LAST FRAME OF X ON TOP
+
+                            }
+
                         }
                     }
                 }

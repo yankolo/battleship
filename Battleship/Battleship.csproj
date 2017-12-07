@@ -154,12 +154,60 @@
     <Resource Include="Assets\red.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Ic_close_48px.svg.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\battleship_banner.png" />
     <Resource Include="Assets\UnderWater.jpg" />
-    <Resource Include="Assets\88485_subitem_full.gif" />
+    <Resource Include="Assets\inGameBackground.gif" />
+    <Resource Include="Assets\lastShipHitFrame.gif" />
+    <Resource Include="Assets\lastWaterHitFrame.gif" />
+    <Resource Include="Assets\letterA.png" />
+    <Resource Include="Assets\letterB.png" />
+    <Resource Include="Assets\letterC.png" />
+    <Resource Include="Assets\letterD.png" />
+    <Resource Include="Assets\letterE.png" />
+    <Resource Include="Assets\letterF.png" />
+    <Resource Include="Assets\letterG.png" />
+    <Resource Include="Assets\letterH.png" />
+    <Resource Include="Assets\letterI.png" />
+    <Resource Include="Assets\letterJ.png" />
+    <Resource Include="Assets\mainMenuBG.gif" />
+    <Resource Include="Assets\metalTexture.png" />
+    <Resource Include="Assets\num0.png" />
+    <Resource Include="Assets\num1.png" />
+    <Resource Include="Assets\num2.png" />
+    <Resource Include="Assets\num3.png" />
+    <Resource Include="Assets\num4.png" />
+    <Resource Include="Assets\num5.png" />
+    <Resource Include="Assets\num6.png" />
+    <Resource Include="Assets\num7.png" />
+    <Resource Include="Assets\num8.png" />
+    <Resource Include="Assets\num9.png" />
+    <Resource Include="Assets\shiphit components\explosion.gif" />
+    <Resource Include="Assets\shiphit components\x.gif" />
+    <Resource Include="Assets\shiphit.gif" />
+    <Resource Include="Assets\Ships\Battleship.png" />
+    <Resource Include="Assets\Ships\BattleshipBack.fw.png" />
+    <Resource Include="Assets\Ships\BattleshipFront.fw.png" />
+    <Resource Include="Assets\Ships\BattleshipMiddleBack.fw.png" />
+    <Resource Include="Assets\Ships\BattleshipMiddleFront.fw.png" />
+    <Resource Include="Assets\Ships\Carrier.png" />
+    <Resource Include="Assets\Ships\CarrierBack.fw.png" />
+    <Resource Include="Assets\Ships\CarrierFront.fw.png" />
+    <Resource Include="Assets\Ships\CarrierMiddleBack.fw.png" />
+    <Resource Include="Assets\Ships\CarrierMiddleFront.fw.png" />
+    <Resource Include="Assets\Ships\Destroyer.png" />
+    <Resource Include="Assets\Ships\DestroyerBack.fw.png" />
+    <Resource Include="Assets\Ships\DestroyerFront.fw.png" />
+    <Resource Include="Assets\Ships\DestroyerMiddleBack.fw.png" />
+    <Resource Include="Assets\Ships\DestroyerMiddleFront.fw.png" />
+    <Resource Include="Assets\Ships\Submarine.png" />
+    <Resource Include="Assets\Ships\SubmarineBack.fw.png" />
+    <Resource Include="Assets\Ships\SubmarineFront.fw.png" />
+    <Resource Include="Assets\Ships\SubmarineMiddleBack.fw.png" />
+    <Resource Include="Assets\Ships\SubmarineMiddleFront.fw.png" />
+    <Resource Include="Assets\transparent.png" />
+    <Resource Include="Assets\waterhit components\circle-gif.gif" />
+    <Resource Include="Assets\waterhit components\watersplash.gif" />
+    <Resource Include="Assets\waterhit.gif" />
     <Content Include="Sound\Two Steps From Hell - Archangel.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -1,121 +1,228 @@
 ﻿<Window x:Class="Battleship.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        gif:ImageBehavior.AnimateInDesignMode="True"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         Title="MainWindow" Height="625" Width="1039.473" ResizeMode="NoResize">
     <Grid Name="Game_Grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="0.1*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
-        <!-- USER GRID -->
-        <Grid x:Name="userGrid" Grid.Column="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-            </Grid.ColumnDefinitions>
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
+                <RowDefinition Height="0.1*" />
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Column="1" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">0</Label>
-            <Label Grid.Column="2" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">1</Label>
-            <Label Grid.Column="3" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">2</Label>
-            <Label Grid.Column="4" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">3</Label>
-            <Label Grid.Column="5" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">4</Label>
-            <Label Grid.Column="6" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">5</Label>
-            <Label Grid.Column="7" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">6</Label>
-            <Label Grid.Column="8" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">7</Label>
-            <Label Grid.Column="9" BorderThickness="0"  HorizontalAlignment="Center" VerticalAlignment="Center">8</Label>
-            <Label Grid.Column="10" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">9</Label>
-
-            <Label Grid.Row="1" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">A</Label>
-            <Label Grid.Row="2" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">B</Label>
-            <Label Grid.Row="3" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">C</Label>
-            <Label Grid.Row="4" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">D</Label>
-            <Label Grid.Row="5" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">E</Label>
-            <Label Grid.Row="6" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">F</Label>
-            <Label Grid.Row="7" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">G</Label>
-            <Label Grid.Row="8" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">H</Label>
-            <Label Grid.Row="9" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">I</Label>
-            <Label Grid.Row="10" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">J</Label>
-        </Grid>
-
-        <!-- COMPUTER GRID -->
-        <Grid x:Name="computerGrid" Grid.Column="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.1*"/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-            </Grid.RowDefinitions>
+
+
+            <Image x:Name="WaterGif" gif:ImageBehavior.RepeatBehavior="Forever" gif:ImageBehavior.AnimatedSource="Assets/inGameBackground.gif"  Grid.ColumnSpan="2" Grid.Column="1"  Grid.Row="1" RenderTransformOrigin="0.5,0.5" Stretch="Fill"/>
+
+            <!-- USER GRID -->
+            <Grid x:Name="userGrid" Grid.Column="1" Grid.Row="1">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+            </Grid>
+
+            <!-- Number grid for user-->
+            <Grid x:Name="NumGridUser" Grid.Column="1" Grid.Row="0">
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="0" Source="Assets/num0.png" Stretch="Fill"></Image>
+                <Image Grid.Column="1" Source="Assets/num1.png" Stretch="Fill"></Image>
+                <Image Grid.Column="2" Source="Assets/num2.png" Stretch="Fill"></Image>
+                <Image Grid.Column="3" Source="Assets/num3.png" Stretch="Fill"></Image>
+                <Image Grid.Column="4" Source="Assets/num4.png" Stretch="Fill"></Image>
+                <Image Grid.Column="5" Source="Assets/num5.png" Stretch="Fill"></Image>
+                <Image Grid.Column="6" Source="Assets/num6.png" Stretch="Fill"></Image>
+                <Image Grid.Column="7" Source="Assets/num7.png" Stretch="Fill"></Image>
+                <Image Grid.Column="8" Source="Assets/num8.png" Stretch="Fill"></Image>
+                <Image Grid.Column="9" Source="Assets/num9.png" Stretch="Fill"></Image>
+            </Grid>
+
+            <!-- Letters grid for User-->
+            <Grid x:Name="LetterGridUser" Grid.Column="0" Grid.Row="1">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
 
 
 
-            <Label Grid.Column="1" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">0</Label>
-            <Label Grid.Column="2" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">1</Label>
-            <Label Grid.Column="3" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">2</Label>
-            <Label Grid.Column="4" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">3</Label>
-            <Label Grid.Column="5" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">4</Label>
-            <Label Grid.Column="6" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">5</Label>
-            <Label Grid.Column="7" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">6</Label>
-            <Label Grid.Column="8" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">7</Label>
-            <Label Grid.Column="9" BorderThickness="0"  HorizontalAlignment="Center" VerticalAlignment="Center">8</Label>
-            <Label Grid.Column="10" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">9</Label>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0" Source="Assets/letterA.png" Stretch="Fill"></Image>
+                <Image Grid.Row="1" Source="Assets/letterB.png" Stretch="Fill"></Image>
+                <Image Grid.Row="2" Source="Assets/letterC.png" Stretch="Fill"></Image>
+                <Image Grid.Row="3" Source="Assets/letterD.png" Stretch="Fill"></Image>
+                <Image Grid.Row="4" Source="Assets/letterE.png" Stretch="Fill"></Image>
+                <Image Grid.Row="5" Source="Assets/letterF.png" Stretch="Fill"></Image>
+                <Image Grid.Row="6" Source="Assets/letterG.png" Stretch="Fill"></Image>
+                <Image Grid.Row="7" Source="Assets/letterH.png" Stretch="Fill"></Image>
+                <Image Grid.Row="8" Source="Assets/letterI.png" Stretch="Fill"></Image>
+                <Image Grid.Row="9" Source="Assets/letterJ.png" Stretch="Fill"></Image>
 
-            <Label Grid.Row="1" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">A</Label>
-            <Label Grid.Row="2" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">B</Label>
-            <Label Grid.Row="3" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">C</Label>
-            <Label Grid.Row="4" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">D</Label>
-            <Label Grid.Row="5" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">E</Label>
-            <Label Grid.Row="6" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">F</Label>
-            <Label Grid.Row="7" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">G</Label>
-            <Label Grid.Row="8" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">H</Label>
-            <Label Grid.Row="9" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">I</Label>
-            <Label Grid.Row="10" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">J</Label>
+                <!--
+                <Label Grid.Row="1" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">B</Label>
+                <Label Grid.Row="2" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">C</Label>
+                <Label Grid.Row="3" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">D</Label>
+                <Label Grid.Row="4" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">E</Label>
+                <Label Grid.Row="5" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">F</Label>
+                <Label Grid.Row="6" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">G</Label>
+                <Label Grid.Row="7" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">H</Label>
+                <Label Grid.Row="8" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">I</Label>
+                <Label Grid.Row="9" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" >J</Label>
+				<Border Grid.Row="0" Grid.RowSpan="10" Background="#86BBF7" Opacity="0"/>
+				-->
+
+            </Grid>
+
+
+
+            <!-- COMPUTER GRID -->
+            <Grid x:Name="computerGrid" Grid.Column="2" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+            </Grid>
+
+            <!-- Number grid for computer-->
+            <Grid x:Name="NumGridComp" Grid.Column="2" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Source="Assets/num9.png" Stretch="Fill"></Image>
+                <Image Grid.Column="1" Source="Assets/num8.png" Stretch="Fill"></Image>
+                <Image Grid.Column="2" Source="Assets/num7.png" Stretch="Fill"></Image>
+                <Image Grid.Column="3" Source="Assets/num6.png" Stretch="Fill"></Image>
+                <Image Grid.Column="4" Source="Assets/num5.png" Stretch="Fill"></Image>
+                <Image Grid.Column="5" Source="Assets/num4.png" Stretch="Fill"></Image>
+                <Image Grid.Column="6" Source="Assets/num3.png" Stretch="Fill"></Image>
+                <Image Grid.Column="7" Source="Assets/num2.png" Stretch="Fill"></Image>
+                <Image Grid.Column="8" Source="Assets/num1.png" Stretch="Fill"></Image>
+                <Image Grid.Column="9" Source="Assets/num0.png" Stretch="Fill"></Image>
+            </Grid>
+
+            <!-- Letter grid of the computer-->
+            <Grid x:Name="LetterGridComp" Grid.Column="3" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0" Source="Assets/letterA.png" Stretch="Fill"></Image>
+                <Image Grid.Row="1" Source="Assets/letterB.png" Stretch="Fill"></Image>
+                <Image Grid.Row="2" Source="Assets/letterC.png" Stretch="Fill"></Image>
+                <Image Grid.Row="3" Source="Assets/letterD.png" Stretch="Fill"></Image>
+                <Image Grid.Row="4" Source="Assets/letterE.png" Stretch="Fill"></Image>
+                <Image Grid.Row="5" Source="Assets/letterF.png" Stretch="Fill"></Image>
+                <Image Grid.Row="6" Source="Assets/letterG.png" Stretch="Fill"></Image>
+                <Image Grid.Row="7" Source="Assets/letterH.png" Stretch="Fill"></Image>
+                <Image Grid.Row="8" Source="Assets/letterI.png" Stretch="Fill"></Image>
+                <Image Grid.Row="9" Source="Assets/letterJ.png" Stretch="Fill"></Image>
+                <!--
+                <Label Grid.Row="0" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">A</Label>
+                <Label Grid.Row="1" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">B</Label>
+                <Label Grid.Row="2" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">C</Label>
+                <Label Grid.Row="3" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">D</Label>
+                <Label Grid.Row="4" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">E</Label>
+                <Label Grid.Row="5" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">F</Label>
+                <Label Grid.Row="6" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">G</Label>
+                <Label Grid.Row="7" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">H</Label>
+                <Label Grid.Row="8" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">I</Label>
+                <Label Grid.Row="9" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">J</Label>
+				<Border Grid.Row="0" Grid.RowSpan="10" Background="#86BBF7" Opacity="0.6"/>
+				-->
+            </Grid>
         </Grid>
         <Grid Grid.Column="0" Grid.ColumnSpan="2" Name="inGameMenu_Grd">
             <Grid.RowDefinitions>
@@ -135,23 +242,33 @@
         </Grid>
 
 
-        <Grid Grid.Row="1" Grid.Column="0">
+        <Grid Name="Score" Grid.Row="1" Grid.Column="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.10*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" BorderThickness="0" x:Name="userScoreboard"></Label>
-            <TextBlock Grid.Column="1" x:Name="userText" Text="" FontSize="18" Foreground="Black" TextDecorations="{x:Null}" FontFamily="Arial" TextAlignment="Center"/>
-        </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.10*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" BorderThickness="0" x:Name="cpuScoreboard"></Label>
-            <TextBlock Grid.Column="1" x:Name="cpuText" Text="" FontSize="18" Foreground="Black" TextDecorations="{x:Null}" FontFamily="Arial" TextAlignment="Center"/>
+            <Image Grid.Row="0" Grid.ColumnSpan="2" Source="Assets/metalTexture.png" Stretch="UniformToFill"></Image>
 
+            <Grid Name="CompScore" Grid.Row="0" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.10*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" BorderThickness="0" x:Name="userScoreboard"></Label>
+                <TextBlock Grid.Column="1" x:Name="userText" Text="" FontSize="18" Foreground="Black" TextDecorations="{x:Null}" FontFamily="Arial" TextAlignment="Center"/>
+                <Border Grid.Column="0" Grid.ColumnSpan="10" Background="#86BBF7" Opacity="0"/>
+            </Grid>
+
+            <Grid Name="UserScore" Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.10*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" BorderThickness="0" x:Name="cpuScoreboard"></Label>
+                <TextBlock Grid.Column="1" x:Name="cpuText" Text="" FontSize="18" Foreground="Black" TextDecorations="{x:Null}" FontFamily="Arial" TextAlignment="Center"/>
+                <Border Grid.Column="0" Grid.ColumnSpan="10" Background="#86BBF7" Opacity="0"/>
+            </Grid>
         </Grid>
     </Grid>
 </Window>
