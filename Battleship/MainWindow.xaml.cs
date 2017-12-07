@@ -24,19 +24,15 @@ namespace battleships
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Game _game;
+        public Game _game;
 
-		private DispatcherTimer delayBeforeAIShoot;
-		private DispatcherTimer timerUserTurn;
-		private DateTime startTime; // The start of the timerUserTurn
-
-		/// <summary>
-		/// Setup basics and create game window
-		/// </summary>
-		public MainWindow()
+        /// <summary>
+        /// Setup basics and create game window
+        /// </summary>
+        public MainWindow(Difficulty difficulty, String userName)
         {
             InitializeComponent();
-            _game = new Game(Difficulty.Hard);
+            _game = new Game(difficulty, userName);
             _game.GameUpdated += OnGameUpdated;
             InitializeGridCells();
             UpdateAllGUI(true);

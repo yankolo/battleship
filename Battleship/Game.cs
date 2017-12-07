@@ -18,6 +18,7 @@ namespace Battleship
         private String _displayedUserText;
         private String _displayedCPUText;
         private IArtificialIntelligence _AI;
+        private String _userName;
 
         private Turn _currentTurn;
 
@@ -35,12 +36,13 @@ namespace Battleship
         public delegate void GameUpdatedEventHandler(object sender, UpdatedFieldEventArgs args);
         public event GameUpdatedEventHandler GameUpdated;
 
-        public Game(Difficulty difficulty)
+        public Game(Difficulty difficulty, String userName)
         {
             _userBoard = new Board(10, 10, true);
             _radarBoard = new Board(10, 10, false);
             ShipFactory.FillBoardRandomly(_radarBoard, 1, 2, 3, 4);
             ShipFactory.FillBoardRandomly(_userBoard, 1, 2, 3, 4);
+            _userName = userName;
 
             _timeGivenForTurn = new TimeSpan(0, 0, 0, 10, 0);
 
@@ -79,7 +81,8 @@ namespace Battleship
             if (_delayBeforeAIShoot != null)
                 _delayBeforeAIShoot.Start();
             if (_timeForUserTurn != null)
-                _timeForUserTurn.Stop();
+                _timeForUserTurn.Start();
+
         }
 
         /// <summary>
