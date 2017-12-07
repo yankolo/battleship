@@ -22,6 +22,7 @@ namespace Battleship
         private Turn _currentTurn;
 
         private bool? _isGameWon;
+        private bool _isGamePaused;
 
         private DispatcherTimer _delayBeforeAIShoot;
         private DispatcherTimer _timeForUserTurn;
@@ -63,6 +64,24 @@ namespace Battleship
             _timeForUserTurn.Start();
         }
 
+        public void PauseGame()
+        {
+            _isGamePaused = true;
+            if (_delayBeforeAIShoot != null)
+                _delayBeforeAIShoot.Stop();
+            if (_timeForUserTurn != null)
+                _timeForUserTurn.Stop();
+        }
+
+        public void UnPauseGame()
+        {
+            _isGamePaused = false;
+            if (_delayBeforeAIShoot != null)
+                _delayBeforeAIShoot.Start();
+            if (_timeForUserTurn != null)
+                _timeForUserTurn.Stop();
+        }
+
         /// <summary>
         /// Method to trigger the event GameUpdated
         /// </summary>
@@ -80,7 +99,7 @@ namespace Battleship
 
         public void UpdateGame(Coordinate input)
         {
-            if (_currentTurn.Equals(Turn.Player))
+            if (_currentTurn.Equals(Turn.Player) && _isGamePaused == false)
             {
                 Field fieldToShoot = RadarBoard.GetField(input);
                 Field fieldToShootCopy = new Field(fieldToShoot); // Copy of field to compare changes of the field
@@ -99,11 +118,14 @@ namespace Battleship
         private void DelayBeforeAIShoot_Tick(object sender, EventArgs e)
         {
             _delayBeforeAIShoot.Stop();
+            _timeForUserTurn.Stop();
+            _timeForUserTurn = null;
 
-        	ShootUser();
+            ShootUser();
             _currentTurn = Turn.Player;
 
-            _timeForUserTurn.Stop();
+            _delayBeforeAIShoot = null;
+
             _timeForUserTurn = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 500), DispatcherPriority.Normal, TimeForUserTurn_Tick, Dispatcher.CurrentDispatcher);
             _currentTurnTime = new TimeSpan();
             _timeForUserTurn.Start();
@@ -227,6 +249,7 @@ namespace Battleship
         public int CpuShots { get { return _cpuShots; } }
         public int CpuHits { get { return _cpuHits; } }
         public bool? IsGameWOn { get { return _isGameWon; } }
+        public bool IsGamePaused { get { return _isGamePaused; } }
         public String DisplayedUserText { get { return _displayedUserText; } }
         public String DisplayedCPUText { get { return _displayedCPUText; } }
     }

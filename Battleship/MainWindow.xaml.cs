@@ -118,10 +118,13 @@ namespace battleships
         /// </summary>
         public void HandleFieldClick(object sender, RoutedEventArgs e)
         {
-            ContentControl b = (ContentControl)sender;
-            Coordinate hitCoordinate = new Coordinate(Grid.GetColumn(b) - 1, Grid.GetRow(b) - 1);
+            if (_game.IsGamePaused == false)
+            {
+                ContentControl b = (ContentControl)sender;
+                Coordinate hitCoordinate = new Coordinate(Grid.GetColumn(b) - 1, Grid.GetRow(b) - 1);
 
-            _game.UpdateGame(hitCoordinate);
+                _game.UpdateGame(hitCoordinate);
+            }
         }
 
 		public void UpdateField(ContentControl content, Field newField, Field oldField)
