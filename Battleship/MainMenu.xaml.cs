@@ -1,4 +1,4 @@
-﻿using battleships;
+﻿using Battleship;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +13,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Battleship
 {
@@ -24,15 +27,20 @@ namespace Battleship
         public MainMenu()
         {
             InitializeComponent();
-
+            CheckIfLoadExists();
         }
 
+        private void CheckIfLoadExists()
+        {
+            if (File.Exists("LastSave.save") == false)
+                Load_Btn.IsEnabled = false;
+        }
        
 
         private void Start_Game_Btn_Click(object sender, RoutedEventArgs e)
         {
             StartGameWindow sw = new StartGameWindow();
-            ((ContentControl)MainMenu_Grd.Parent).Content = sw.Difficulties_Grd;
+            ((ContentControl)MainMenu_Grd.Parent).Content = sw.CreateNewGame_Grd;
         }
 
         private void Quit_Btn_Click(object sender, RoutedEventArgs e)
@@ -46,6 +54,16 @@ namespace Battleship
                 "and you will be able to play and enjoy our version of Battleship.");
         }
 
-       
+        private void Load_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream("LastSave.save", FileMode.Open, FileAccess.Read, FileShare.Read);
+            Game game = (Game)formatter.Deserialize(stream);
+            stream.Close();
+
+            MainWindow dw = new MainWindow(game);
+            StartWindow.mw = dw;
+            ((ContentControl)MainMenu_Grd.Parent).Content = dw.Game_Grid;
+        }
     }
 }

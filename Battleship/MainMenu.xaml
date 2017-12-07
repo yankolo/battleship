@@ -55,7 +55,7 @@
                 </Viewbox>
 
                 <Button Grid.Row="1" Grid.Column="1" Name="Start_Game_Btn"  Content="Start New Game"   BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1" Click="Start_Game_Btn_Click"/>
-                <Button Grid.Row="3" Grid.Column="1" Name="Load_Btn"  Content="Load Game" BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1"/>
+                <Button Grid.Row="3" Grid.Column="1" Name="Load_Btn"  Content="Load Game" BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1" Click="Load_Btn_Click"/>
                
                 <Grid Grid.Row="6" Grid.Column="1">
                     <Grid.ColumnDefinitions>

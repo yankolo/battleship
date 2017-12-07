@@ -1,4 +1,7 @@
-﻿public enum Direction
+﻿using System;
+
+[Serializable]
+public enum Direction
 {
     Horizontal,
     Vertical

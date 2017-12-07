@@ -7,7 +7,8 @@ using System.Windows.Threading;
 
 namespace Battleship
 {
-   public class Game
+    [Serializable]
+    public class Game
     {
         private Board _userBoard;
         private Board _radarBoard;
@@ -23,9 +24,12 @@ namespace Battleship
         private Turn _currentTurn;
 
         private bool? _isGameWon;
+        [NonSerialized]
         private bool _isGamePaused;
 
+        [NonSerialized]
         private DispatcherTimer _delayBeforeAIShoot;
+        [NonSerialized]
         private DispatcherTimer _timeForUserTurn;
 
         private TimeSpan _timeGivenForTurn;

@@ -35,7 +35,7 @@ namespace Battleship
             
             StartGameWindow.difficulty = "Medium";
             _sgw.Difficulty_Btn.Content = "Difficulty:Medium";
-            ((ContentControl)Difficulties_Grd.Parent).Content = _sgw.Difficulties_Grd;
+            ((ContentControl)Difficulties_Grd.Parent).Content = _sgw.CreateNewGame_Grd;
         }
 
         private void HardDifficulty_Btn_Click(object sender, RoutedEventArgs e)
@@ -43,7 +43,7 @@ namespace Battleship
             
             StartGameWindow.difficulty = "Hard";
             _sgw.Difficulty_Btn.Content = "Difficulty:Hard";
-            ((ContentControl)Difficulties_Grd.Parent).Content = _sgw.Difficulties_Grd;
+            ((ContentControl)Difficulties_Grd.Parent).Content = _sgw.CreateNewGame_Grd;
         }
 
         private void EasyDifficulty_Btn_Click(object sender, RoutedEventArgs e)
@@ -51,7 +51,7 @@ namespace Battleship
             
             StartGameWindow.difficulty = "Easy";
             _sgw.Difficulty_Btn.Content = "Difficulty:Easy";
-            ((ContentControl)Difficulties_Grd.Parent).Content = _sgw.Difficulties_Grd;
+            ((ContentControl)Difficulties_Grd.Parent).Content = _sgw.CreateNewGame_Grd;
         }
         
     }

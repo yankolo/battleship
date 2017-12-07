@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Battleship
 {
-	public class MediumAI : IArtificialIntelligence
+    [Serializable]
+    public class MediumAI : IArtificialIntelligence
 	{
         private Board _userBoard;
         private IArtificialIntelligence _easyAI;

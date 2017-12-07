@@ -8,6 +8,7 @@ using System.Windows;
 
 namespace Battleship
 {
+    [Serializable]
     public class Field
     {
         private bool _isRevealed;

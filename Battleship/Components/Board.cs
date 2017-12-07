@@ -8,6 +8,7 @@ using System.Drawing;
 
 namespace Battleship
 {
+    [Serializable]
     public class Board
     {
         private Field[,] _fields;

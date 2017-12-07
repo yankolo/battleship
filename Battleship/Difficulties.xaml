@@ -14,7 +14,7 @@
 
         </Grid.ColumnDefinitions>
 
-        <Image Grid.ColumnSpan ="3" Name="Background_img" Source="Assets/UnderWater.jpg" Stretch="UniformToFill" Margin="0,0,10,0"/>
+        <Image Grid.ColumnSpan ="3" Name="Background_img" Source="Assets/UnderWater.jpg" Stretch="UniformToFill"/>
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>

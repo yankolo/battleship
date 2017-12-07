@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Battleship
 {
+    [Serializable]
     public class EasyAI : IArtificialIntelligence
     {
         private Board _userBoard;

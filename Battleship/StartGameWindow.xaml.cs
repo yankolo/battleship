@@ -1,4 +1,4 @@
-﻿using battleships;
+﻿using Battleship;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +32,7 @@ namespace Battleship
         {
             Difficulties d = new Difficulties(this);
             
-            ((ContentControl)Difficulties_Grd.Parent).Content = d.Difficulties_Grd;
+            ((ContentControl)CreateNewGame_Grd.Parent).Content = d.Difficulties_Grd;
         }
 
         private void UserName_TBox_GotFocus(object sender, RoutedEventArgs e)
@@ -69,14 +69,14 @@ namespace Battleship
                 MainWindow dw = new MainWindow(d,userName);
                 StartWindow.mw = dw;
                 userName = "";
-                ((ContentControl)Difficulties_Grd.Parent).Content = dw.Game_Grid;
+                ((ContentControl)CreateNewGame_Grd.Parent).Content = dw.Game_Grid;
             }
         }
 
         private void Back_Btn_Click(object sender, RoutedEventArgs e)
         {
             MainMenu m = new MainMenu();
-            ((ContentControl)Difficulties_Grd.Parent).Content = m.MainMenu_Grd;
+            ((ContentControl)CreateNewGame_Grd.Parent).Content = m.MainMenu_Grd;
         }
 
         private Difficulty UserChoice(String choice)

@@ -36,7 +36,7 @@
             </Viewbox>
                 <Button Grid.Row="3" Name="Resume_Btn" Content="Resume" Click="Resume_Btn_Click" />
                 <Button Grid.Row="5" Name="Quit_Btn" Content="Leave Game" Click="ReturnToMainMenu_Btn_Click" />
-                <Button Grid.Row="7" Name="SaveQuit_Btn" Content="Save &amp; Leave Game" />
+            <Button Grid.Row="7" Name="SaveQuit_Btn" Content="Save &amp; Leave Game" Click="SaveQuit_Btn_Click" />
                 <Button Grid.Row="9" Name="Exit_Btn" Content="Exit To Desktop" Click="Quit_BtnBtn_Click" />
                 
                 

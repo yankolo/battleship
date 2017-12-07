@@ -1,4 +1,4 @@
-﻿using battleships;
+﻿using Battleship;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +12,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Battleship
 {
@@ -48,10 +51,19 @@ namespace Battleship
         private void ReturnToMainMenu_Btn_Click(object sender, RoutedEventArgs e)
         {
             StartWindow.mw = null;
-           MainMenu mainMenu = new MainMenu();
+            MainMenu mainMenu = new MainMenu();
             ((ContentControl)_parent.Parent).Content = mainMenu.MainMenu_Grd;
 
 
+        }
+
+        private void SaveQuit_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            StartWindow.mw.SaveGame();
+
+            StartWindow.mw = null;
+            MainMenu mainMenu = new MainMenu();
+            ((ContentControl)_parent.Parent).Content = mainMenu.MainMenu_Grd;
         }
     }
 }

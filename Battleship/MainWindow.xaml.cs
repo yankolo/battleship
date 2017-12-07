@@ -16,8 +16,11 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Timers;
 using Battleship;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
-namespace battleships
+namespace Battleship
 {
     /// <summary>
     /// Simple wpf battleships game
@@ -33,6 +36,15 @@ namespace battleships
         {
             InitializeComponent();
             _game = new Game(difficulty, userName);
+            _game.GameUpdated += OnGameUpdated;
+            InitializeGridCells();
+            UpdateAllGUI(true);
+        }
+
+        public MainWindow(Game game)
+        {
+            InitializeComponent();
+            _game = game;
             _game.GameUpdated += OnGameUpdated;
             InitializeGridCells();
             UpdateAllGUI(true);
@@ -267,6 +279,16 @@ namespace battleships
                     }
                 }
             }
+        }
+
+        public void SaveGame()
+        {
+            _game.GameUpdated -= OnGameUpdated;
+
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream("LastSave.save", FileMode.Create, FileAccess.Write, FileShare.None);
+            formatter.Serialize(stream, _game);
+            stream.Close();
         }
     }
 }

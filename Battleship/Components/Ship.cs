@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Battleship
 {
+    [Serializable]
     public class Ship
     {
         private int _size;

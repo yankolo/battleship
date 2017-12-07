@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Battleship"
         mc:Ignorable="d"
         Title="StartGameWindow" Height="591.489" Width="1147.915">
-    <Grid Name="Difficulties_Grd">
+    <Grid Name="CreateNewGame_Grd">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
