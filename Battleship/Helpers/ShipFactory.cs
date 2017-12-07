@@ -61,13 +61,23 @@ namespace Battleship
             {
                 coordinate = horizontalCoordinates[rand.Next(horizontalCoordinates.Count)];
                 for (int i = 0; i < ship.Size; i++)
-                    board.GetField(new Coordinate(coordinate.X + i, coordinate.Y)).Ship = ship;
+                {
+                    Field field = board.GetField(new Coordinate(coordinate.X + i, coordinate.Y));
+                    field.Ship = ship;
+                    field.ShipFieldPosition = i;
+                    field.ShipDirection = Direction.Horizontal;
+                }  
             }
             else
             {
                 coordinate = verticalCoordinates[rand.Next(verticalCoordinates.Count)];
                 for (int i = 0; i < ship.Size; i++)
-                    board.GetField(new Coordinate(coordinate.X, coordinate.Y + i)).Ship = ship;
+                {
+                    Field field = board.GetField(new Coordinate(coordinate.X, coordinate.Y + i));
+                    field.Ship = ship;
+                    field.ShipFieldPosition = i;
+                    field.ShipDirection = Direction.Vertical;
+                }
             }
         }
 
