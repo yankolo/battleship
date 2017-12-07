@@ -38,7 +38,12 @@ namespace Battleship
             _difficltyToUse.Add(Difficulty.Easy);
         }
 
-        public Field Hit()
+		public Difficulty GetDifficutly()
+		{
+			return Difficulty.Medium;
+		}
+
+		public Field Hit()
         {
             Random rand = new Random();
             Difficulty difficutly = _difficltyToUse[rand.Next(0, _difficltyToUse.Count)];

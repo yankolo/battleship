@@ -9,5 +9,7 @@ namespace Battleship
     public interface IArtificialIntelligence
     {
         Field Hit();
+
+		Difficulty GetDifficutly();
     }
 }

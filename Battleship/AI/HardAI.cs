@@ -436,6 +436,11 @@ namespace Battleship
 
             return largestPossibleShipFields;
         }
-    }
+
+		public Difficulty GetDifficutly()
+		{
+			return Difficulty.Hard;
+		}
+	}
 }
 

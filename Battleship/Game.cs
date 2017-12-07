@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Battleship
 {
@@ -106,7 +109,7 @@ namespace Battleship
 
         public void UpdateGame(Coordinate input)
         {
-            if (_currentTurn.Equals(Turn.Player) && _isGamePaused == false)
+			if (_currentTurn.Equals(Turn.Player) && _isGamePaused == false)
             {
                 Field fieldToShoot = RadarBoard.GetField(input);
                 Field fieldToShootCopy = new Field(fieldToShoot); // Copy of field to compare changes of the field
@@ -201,8 +204,10 @@ namespace Battleship
                 _displayedUserText = "Congratulations you sunk every ship";
                 OnGameUpdated(field, copyField, _radarBoard);
 
-                // add text output and end game --> ask user to restart or end game.
-            }
+				SaveScore();
+
+				// add text output and end game --> ask user to restart or end game.
+			}
         }
         private void ShootUser()
         {
@@ -245,8 +250,10 @@ namespace Battleship
                 _displayedCPUText = "Sorry the cpu destroyed every ship you have :(";
                 OnGameUpdated(field, copyField, _userBoard);
 
-                // add text output and end game --> ask user to restart or end game.
-            }
+				SaveScore();
+
+				// add text output and end game --> ask user to restart or end game.
+			}
         }
 
 
@@ -262,6 +269,69 @@ namespace Battleship
 				_timeForUserTurn = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 500), DispatcherPriority.Normal, TimeForUserTurn_Tick, Dispatcher.CurrentDispatcher);
 				_timeForUserTurn.Start();
 			}
+
+		}
+
+		public void SaveScore()
+		{
+			bool isPlayerScoreFound = false;
+			Score score;
+
+			if (Directory.Exists("Scores"))
+			{
+				string[] files = Directory.GetFiles("Scores", "*.score", SearchOption.TopDirectoryOnly);
+
+				for (int i = 0; i < files.Length; i++)
+				{
+					string playerName = files[i].Substring(files[i].LastIndexOf("\\") + 1);
+					playerName = playerName.Substring(0, playerName.Length - playerName.LastIndexOf("."));
+
+					if (_userName.Equals(playerName))
+					{
+						isPlayerScoreFound = true;
+						break;
+					}
+				}
+			}
+			else
+				Directory.CreateDirectory("Scores");
+
+			if (isPlayerScoreFound)
+			{
+				IFormatter formatter1 = new BinaryFormatter();
+				Stream stream1 = new FileStream("Scores/" + _userName, FileMode.Open, FileAccess.Read, FileShare.Read);
+				score = (Score)formatter1.Deserialize(stream1);
+				stream1.Close();
+			}
+			else
+			{
+				score = new Score(_userName, 0, 0, 0, 0);
+			}
+
+			if (_isGameWon == true)
+			{
+				switch (_AI.GetDifficutly())
+				{
+					case Difficulty.Easy:
+						score.EasyWins++;
+						break;
+					case Difficulty.Medium:
+						score.MediumWins++;
+						break;
+					case Difficulty.Hard:
+						score.HardWins++;
+						break;
+				}
+			}
+			else if (_isGameWon == false)
+			{
+				score.Losses++;
+			}
+
+			IFormatter formatter2 = new BinaryFormatter();
+			Stream stream2 = new FileStream("Scores/" + _userName, FileMode.Create, FileAccess.Write, FileShare.None);
+			formatter2.Serialize(stream2, score);
+			stream2.Close();
 
 		}
 

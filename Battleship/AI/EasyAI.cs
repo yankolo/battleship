@@ -27,7 +27,12 @@ namespace Battleship
 
         }
 
-        public Field Hit()
+		public Difficulty GetDifficutly()
+		{
+			return Difficulty.Easy;
+		}
+
+		public Field Hit()
         {
             // Fill array list that contains all fields that were not hit,
             // generate random index to shoot on the board
