@@ -37,9 +37,9 @@ namespace battleships
         {
             InitializeComponent();
             _game = new Game(Difficulty.Hard);
+            _game.GameUpdated += OnGameUpdated;
             InitializeGridCells();
             UpdateAllGUI(true);
-			StartTimer();
         }
 
         private void InitializeGridCells()
@@ -65,68 +65,64 @@ namespace battleships
         }
 
         /// <summary>
+        /// Event Handler for GameUpdated
+        /// 
+        /// Calls the methods to update the GUI (UpdateField() and UpdateAllGUI)
+        /// 
+        /// Before calling UpdateField, it finds the content control that represents the fields passed in the EventArgs
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnGameUpdated(object sender, UpdatedFieldEventArgs e)
+        {
+            if (e.newField != null && e.oldField != null)
+            {
+                Coordinate coordinate; // The coordinate of the field
+                Grid grid; // The grid that contains the content control representing the field
+                ContentControl fieldContentControl; // the content control representing the field
+
+                if (e.board == _game.RadarBoard)
+                {
+                    coordinate = _game.RadarBoard.GetCoordinates(e.newField);
+                    grid = computerGrid;
+                }
+                else
+                {
+                    coordinate = _game.UserBoard.GetCoordinates(e.newField);
+                    grid = userGrid;
+                }
+
+                // Finding the content control representing the field
+                for (int i = 0; i < grid.Children.Count; i++)
+                {
+                    UIElement element = grid.Children[i];
+                    if (element.GetType() == typeof(ContentControl))
+                    {
+                        ContentControl content = (ContentControl)element;
+
+                        if (Grid.GetRow(content) == coordinate.Y + 1 && Grid.GetColumn(content) == coordinate.X + 1)
+                        {
+                            fieldContentControl = content;
+                            UpdateField(fieldContentControl, e.newField, e.oldField);
+                        }
+                    }
+                }
+            }
+
+            UpdateAllGUI(true); // SHOULD BE UpdateAllGUI(), IT IS  UpdateAllGUI(true) BECAUSE "X" ON HIT FIELDS ARE SET IN THIS METHOD
+        }
+
+        /// <summary>
         /// Handles a click on a button from the field and will change color of it depending on the result
         /// </summary>
         public void HandleFieldClick(object sender, RoutedEventArgs e)
         {
-			if (delayBeforeAIShoot == null)
-			{
-				ContentControl b = (ContentControl)sender;
-				Coordinate hitCoordinate = new Coordinate(Grid.GetColumn(b) - 1, Grid.GetRow(b) - 1);
-				Field field = _game.RadarBoard.GetField(hitCoordinate);
-				Field oldField = new Field(field); // Copy of field to track changes in UpdateField();
-				_game.ShootOpponent(hitCoordinate);
-				UpdateField(b, field, oldField);
+            ContentControl b = (ContentControl)sender;
+            Coordinate hitCoordinate = new Coordinate(Grid.GetColumn(b) - 1, Grid.GetRow(b) - 1);
 
-                if (IsFieldStateChanged(field, oldField))
-                {
-				    UpdateAllGUI();
-				    // add the dispatcher timer --> 
-				    delayBeforeAIShoot = new DispatcherTimer( new TimeSpan(0, 0, 0, 0, 500) ,DispatcherPriority.Normal, DispatcherTimer_Tick, Dispatcher);
-				    // enable all
-				    delayBeforeAIShoot.Start();
-
-                    StartTimer();
-                }
-            }
+            _game.UpdateGame(hitCoordinate);
         }
-
-        public bool IsFieldStateChanged(Field newField, Field oldField)
-        {
-            if (oldField.IsRevealed != newField.IsRevealed)
-            {
-                return true;
-            }
-            return false;
-        }
-
-		private void StartTimer()
-		{
-			timerUserTurn = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 500), DispatcherPriority.Normal, Timer_Tick, Dispatcher);
-			startTime = DateTime.Now;
-		}
-
-		private void Timer_Tick(object sender, EventArgs e)
-		{
-			TimeSpan elapsed = DateTime.Now - startTime;
-			if (elapsed > new TimeSpan(0, 0, 0, 60, 0))
-			{
-				timerUserTurn.Stop();
-				_game.ShootUser();
-				UpdateAllGUI(true);
-				StartTimer();
-			}
-		}
-
-		private void DispatcherTimer_Tick(object sender, EventArgs e)
-		{
-			// code what happens when the 
-			((DispatcherTimer)sender).Stop();
-			_game.ShootUser();
-			UpdateAllGUI(true);
-			delayBeforeAIShoot = null;
-			StartTimer();
-		}
 
 		public void UpdateField(ContentControl content, Field newField, Field oldField)
         {
@@ -162,16 +158,16 @@ namespace battleships
 
         public void UpdateAllGUI(bool shouldUpdateFields = false)
         {
-				userText.Text = _game.DisplayedUserText;
-			    cpuText.Text = _game.DisplayedCPUText;
-			    userScoreboard.Content = "shots:\r\n" + _game.UserShots;
-			    cpuScoreboard.Content = "shots:\r\n" + _game.CpuShots;
+			userText.Text = _game.DisplayedUserText;
+			cpuText.Text = _game.DisplayedCPUText;
+			userScoreboard.Content = "shots:\r\n" + _game.UserShots;
+			cpuScoreboard.Content = "shots:\r\n" + _game.CpuShots;
 
-			    if (shouldUpdateFields == true)
-			    {
-			        UpdateGUICompFields();
-			        UpdateGUIUserFields();
-			    }
+            if (shouldUpdateFields == true)
+            {
+                UpdateGUICompFields();
+                UpdateGUIUserFields();
+            }
         }
 
         private void UpdateGUICompFields()
