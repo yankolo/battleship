@@ -49,7 +49,7 @@ namespace Battleship
             _radarBoard = new Board(10, 10, false);
             ShipFactory.FillBoardRandomly(_radarBoard, 1, 2, 3, 4);
             ShipFactory.FillBoardRandomly(_userBoard, 1, 2, 3, 4);
-            _userName = userName;
+            _userName = userName.ToLower();
 
             _timeGivenForTurn = new TimeSpan(0, 0, 0, 10, 0);
 
@@ -299,7 +299,7 @@ namespace Battleship
 			if (isPlayerScoreFound)
 			{
 				IFormatter formatter1 = new BinaryFormatter();
-				Stream stream1 = new FileStream("Scores/" + _userName, FileMode.Open, FileAccess.Read, FileShare.Read);
+				Stream stream1 = new FileStream("Scores/" + _userName + ".score", FileMode.Open, FileAccess.Read, FileShare.Read);
 				score = (Score)formatter1.Deserialize(stream1);
 				stream1.Close();
 			}
@@ -329,7 +329,7 @@ namespace Battleship
 			}
 
 			IFormatter formatter2 = new BinaryFormatter();
-			Stream stream2 = new FileStream("Scores/" + _userName, FileMode.Create, FileAccess.Write, FileShare.None);
+			Stream stream2 = new FileStream("Scores/" + _userName + ".score", FileMode.Create, FileAccess.Write, FileShare.None);
 			formatter2.Serialize(stream2, score);
 			stream2.Close();
 
