@@ -66,5 +66,11 @@ namespace Battleship
             ((ContentControl)MainMenu_Grd.Parent).Content = dw.Game_Grid;
 			StartWindow.mw._game.ResumeTimers();
         }
+
+        private void LeaderBoard_Click(object sender, RoutedEventArgs e)
+        {
+            LeaderBoard lb = new LeaderBoard();
+            ((ContentControl)MainMenu_Grd.Parent).Content = lb.LeaderBoardGrid_Grd;
+        }
     }
 }

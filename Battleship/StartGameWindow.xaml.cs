@@ -20,7 +20,9 @@ namespace Battleship
     /// </summary>
     public partial class StartGameWindow : Window
     {
+        public static int time = 0;
         public static String difficulty = "Easy";
+        public static bool debug = false;
         public static String userName;
         public StartGameWindow()
         {
@@ -66,7 +68,7 @@ namespace Battleship
             else
             {
                 Difficulty d = UserChoice(difficulty);
-                MainWindow dw = new MainWindow(d,userName);
+                MainWindow dw = new MainWindow(d,userName,debug);
                 StartWindow.mw = dw;
                 userName = "";
                 ((ContentControl)CreateNewGame_Grd.Parent).Content = dw.Game_Grid;
@@ -101,7 +103,14 @@ namespace Battleship
 
         private void Debug_Btn_Click(object sender, RoutedEventArgs e)
         {
+            DebugWindow dw = new DebugWindow(this);
+            ((ContentControl)CreateNewGame_Grd.Parent).Content = dw.Debug_Grd;
+        }
 
+        private void TIme_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            LimitedTime lt = new LimitedTime(this);
+            ((ContentControl)CreateNewGame_Grd.Parent).Content = lt.MainGrid_Grd;
         }
     }
 }

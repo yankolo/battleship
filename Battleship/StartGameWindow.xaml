@@ -18,12 +18,12 @@
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.4*"/>
-                <RowDefinition Height="0.4*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="125*"/>
+                <RowDefinition Height="52*"/>
+                <RowDefinition Height="383*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Margin="0,0,0,25">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="0.5*"/>
@@ -40,30 +40,33 @@
 
                 <Grid Grid.Column="1" Margin="0,10,0,0" >
                     <Grid.RowDefinitions>
+                        <RowDefinition  Height="38*"/>
+                        <RowDefinition  Height="16*"/>
+                        <RowDefinition  Height="48*"/>
+                        <RowDefinition  Height="22*"/>
+                        <RowDefinition  Height="46*"/>
                         <RowDefinition  Height="34*"/>
-                        <RowDefinition  Height="34*"/>
-                        <RowDefinition  Height="34*"/>
-                        <RowDefinition  Height="31*"/>
-                        <RowDefinition  Height="34*"/>
-                        <RowDefinition  Height="37*"/>
                         <RowDefinition  Height="41*"/>
+                        <RowDefinition  Height="26*"/>
                         <RowDefinition  Height="0*"/>
-                        <RowDefinition  Height="56*"/>
+                        <RowDefinition  Height="54*"/>
+                        <RowDefinition  Height="48*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" />
-                    <Button Grid.Row="2" Name="Debug_Btn" Content="Debug:Off" BorderBrush="{x:Null}" Foreground="#FF060606" Background="#FFB9C9C1" Click="Debug_Btn_Click"/>
-                    <Button Grid.Row="4" Name="Difficulty_Btn" Content="Difficulty:Easy" BorderBrush="{x:Null}" Foreground="#FF060606" Background="#FFB9C9C1" Click="Difficulty_Btn_Click"/>
+                    <Button Grid.Row="2" Name="Debug_Btn" Content="Debug:Off" BorderBrush="{x:Null}" Foreground="#FF060606" Background="#FFB9C9C1" Click="Debug_Btn_Click" FontSize="25"/>
+                    <Button Grid.Row="4" Name="Difficulty_Btn" Content="Difficulty:Easy" BorderBrush="{x:Null}" Foreground="#FF060606" Background="#FFB9C9C1" Click="Difficulty_Btn_Click" FontSize="25" />
+                    <Button Grid.Row="6" Name="TIme_Btn" Content="Limited Time:Off" BorderBrush="{x:Null}" Foreground="#FF060606" Background="#FFB9C9C1" FontSize="25" Click="TIme_Btn_Click"/>
 
                     <TextBox Background="White" Grid.Row="0" Name="UserName_TBox" Text="Enter your User Name"  FontSize="24"  Foreground="#FFB0A7A7" GotFocus="UserName_TBox_GotFocus" LostFocus="UserName_TBox_LostFocus"/>
 
-                    <Grid Grid.Row="6">
+                    <Grid Grid.Row="9">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="118*"/>
                             <ColumnDefinition Width="28*"/>
                             <ColumnDefinition Width="125*"/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Name="Back_Btn"  Content="Back" BorderBrush="{x:Null}" Foreground="#FF060606" Background="#FFB9C9C1" Click="Back_Btn_Click"  />
-                        <Button Grid.Column="2" Name="Start_Btn"  Content="Start Game" BorderBrush="{x:Null}" Foreground="#FF040404" Background="#FF46CD1E" Click="Start_Btn_Click" />
+                        <Button Grid.Column="0" Name="Back_Btn"  Content="Back" BorderBrush="{x:Null}" Foreground="#FF060606" Background="#FFB9C9C1" Click="Back_Btn_Click" FontSize="25" />
+                        <Button Grid.Column="2" Name="Start_Btn"  Content="Start Game" BorderBrush="{x:Null}" Foreground="#FF040404" Background="#FF46CD1E" Click="Start_Btn_Click" FontSize="25" />
 
 
                     </Grid>

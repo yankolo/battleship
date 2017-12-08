@@ -62,6 +62,9 @@
     <Compile Include="AI\MediumAI.cs" />
     <Compile Include="Components\Ship.cs" />
     <Compile Include="AI\HardAI.cs" />
+    <Compile Include="DebugWindow.xaml.cs">
+      <DependentUpon>DebugWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Difficulties.xaml.cs">
       <DependentUpon>Difficulties.xaml</DependentUpon>
     </Compile>
@@ -70,6 +73,12 @@
     <Compile Include="Helpers\ShipFactory.cs" />
     <Compile Include="InGameMenu.xaml.cs">
       <DependentUpon>InGameMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LeaderBoard.xaml.cs">
+      <DependentUpon>LeaderBoard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LimitedTime.xaml.cs">
+      <DependentUpon>LimitedTime.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
@@ -81,11 +90,23 @@
     <Compile Include="StartWindow.xaml.cs">
       <DependentUpon>StartWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="DebugWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Difficulties.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="InGameMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LeaderBoard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LimitedTime.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

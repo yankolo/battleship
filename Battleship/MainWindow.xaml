@@ -264,10 +264,12 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.10*"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.5*"/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" BorderThickness="0" x:Name="cpuScoreboard"></Label>
                 <TextBlock Grid.Column="1" x:Name="cpuText" Text="" FontSize="18" Foreground="Black" TextDecorations="{x:Null}" FontFamily="Arial" TextAlignment="Center"/>
                 <Border Grid.Column="0" Grid.ColumnSpan="10" Background="#86BBF7" Opacity="0"/>
+                <Button Grid.Column="2" Name="Debug_btn"  Visibility="Hidden" Content="Reveal all" Click="Debug_btn_Click"/>
             </Grid>
         </Grid>
     </Grid>

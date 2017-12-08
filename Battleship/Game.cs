@@ -37,14 +37,15 @@ namespace Battleship
 
         private TimeSpan _timeGivenForTurn;
         private TimeSpan _currentTurnTime;
-
+        private bool _debug = false;
 
         // Delegate and Event for the event handler GameUpdated
         public delegate void GameUpdatedEventHandler(object sender, UpdatedFieldEventArgs args);
         public event GameUpdatedEventHandler GameUpdated;
 
-        public Game(Difficulty difficulty, String userName)
+        public Game(Difficulty difficulty, String userName , bool debug)
         {
+            _debug = debug;
             _userBoard = new Board(10, 10, true);
             _radarBoard = new Board(10, 10, false);
             ShipFactory.FillBoardRandomly(_radarBoard, 1, 2, 3, 4);
@@ -116,7 +117,7 @@ namespace Battleship
 
                 ShootOpponent(input);
 
-                if (fieldToShoot.IsRevealed != fieldToShootCopy.IsRevealed)
+                if (fieldToShoot.IsHit != fieldToShootCopy.IsHit)
                 {
                     _currentTurn = Turn.Computer;
                     _delayBeforeAIShoot = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 500), DispatcherPriority.Normal, DelayBeforeAIShoot_Tick, Dispatcher.CurrentDispatcher);
@@ -168,7 +169,7 @@ namespace Battleship
             Field field = _radarBoard.GetField(hitCoordinate);
             Field copyField = new Field(field); // Copy of field to be able to see how the field changed
 
-            if (field.Ship != null && !field.IsRevealed)
+            if (field.Ship != null && !field.IsHit)
             {
                 field.IsRevealed = true;
                 _userShots++;
@@ -177,22 +178,24 @@ namespace Battleship
                 if (field.Ship.Size ==0)
                 {
                     _displayedUserText = "That's a hit! This " + field.Ship.Name + " has been sunked.";
+                    field.IsHit = true;
                 }
                 else
                 {
                    _displayedUserText = "That's a hit!";
-
+                    field.IsHit = true;
                 }
                 OnGameUpdated(field, copyField, _radarBoard);
             }
-            else if (field.Ship == null && !field.IsRevealed)
+            else if (field.Ship == null && !field.IsHit)
             {
                 field.IsRevealed = true;
                 _userShots++;
                 _displayedUserText = "That was a shot in the water!";
+                field.IsHit = true;
                 OnGameUpdated(field, copyField, _radarBoard);
             }
-            else if (field.IsRevealed)
+            else if (field.IsHit)
             {
                 _displayedUserText = "You already shot there.";
                 OnGameUpdated(field, copyField, _radarBoard);
@@ -334,6 +337,36 @@ namespace Battleship
 			stream2.Close();
 
 		}
+        public void RevealAll()
+        {
+            for (int x = 0; x < 10; x++)
+            {
+                for (int y = 0; y < 10; y++)
+                {
+                    Coordinate cd = new Coordinate(x, y);
+                    Field field = _radarBoard.GetField(cd);
+                    field.IsRevealed = true;
+
+                }
+            }
+        }
+        public void HideAll()
+        {
+            for (int x = 0; x < 10; x++)
+            {
+                for (int y = 0; y < 10; y++)
+                {
+                    Coordinate cd = new Coordinate(x, y);
+                    Field field = _radarBoard.GetField(cd);
+                    if (field.IsHit == false)
+                    {
+                        field.IsRevealed = false;
+                    }
+
+
+                }
+            }
+        }
 
         public Board RadarBoard { get { return _radarBoard; } }
         public Board UserBoard { get { return _userBoard; } }
@@ -345,5 +378,6 @@ namespace Battleship
         public bool IsGamePaused { get { return _isGamePaused; } }
         public String DisplayedUserText { get { return _displayedUserText; } }
         public String DisplayedCPUText { get { return _displayedCPUText; } }
+        public bool Debug { get { return _debug; } }
     }
 }

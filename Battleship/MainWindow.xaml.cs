@@ -30,14 +30,16 @@ namespace Battleship
     public partial class MainWindow : Window
     {
         public Game _game;
-
+        private bool _useDebug;
         /// <summary>
         /// Setup basics and create game window
         /// </summary>
-        public MainWindow(Difficulty difficulty, String userName)
+        public MainWindow(Difficulty difficulty, String userName , bool debug)
         {
             InitializeComponent();
-            _game = new Game(difficulty, userName);
+            _useDebug = debug;
+            SetDebug(debug);
+            _game = new Game(difficulty, userName,debug);
             _game.GameUpdated += OnGameUpdated;
             InitializeGridCells();
             UpdateAllGUI(true);
@@ -47,6 +49,7 @@ namespace Battleship
         {
             InitializeComponent();
             _game = game;
+            _useDebug = _game.Debug;
             _game.GameUpdated += OnGameUpdated;
             InitializeGridCells();
             UpdateAllGUI(true);
@@ -143,7 +146,7 @@ namespace Battleship
 
         public void UpdateField(Grid grid, Field newField, Field oldField)
         {
-            if ((oldField.IsHit != newField.IsHit) || (oldField.IsRevealed != newField.IsRevealed))
+            if ((oldField.IsHit != newField.IsHit))
             {
                 if (newField.Ship == null) // If water
                 {
@@ -187,6 +190,14 @@ namespace Battleship
             cpuText.Text = _game.DisplayedCPUText;
             userScoreboard.Content = "shots:\r\n" + _game.UserShots;
             cpuScoreboard.Content = "shots:\r\n" + _game.CpuShots;
+            if (_game.Debug == true)
+            {
+                Debug_btn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Debug_btn.Visibility = Visibility.Hidden;
+            }
 
             if (shouldUpdateFields == true)
             {
@@ -326,6 +337,33 @@ namespace Battleship
             Stream stream = new FileStream("LastSave.save", FileMode.Create, FileAccess.Write, FileShare.None);
             formatter.Serialize(stream, _game);
             stream.Close();
+        }
+        private void SetDebug(bool debug)
+        {
+            if (debug)
+            {
+                Debug_btn.Visibility = Visibility.Visible;
+            }
+
+        }
+
+        private void Debug_btn_Click(object sender, RoutedEventArgs e)
+        {
+            if (_useDebug)
+            {
+
+                _game.RevealAll();
+                _useDebug = false;
+                Debug_btn.Content = "Hide All";
+                UpdateAllGUI(true);
+            }
+            else
+            {
+                _game.HideAll();
+                _useDebug = true;
+                Debug_btn.Content = "Reveal All";
+                UpdateAllGUI(true);
+            }
         }
     }
 }
