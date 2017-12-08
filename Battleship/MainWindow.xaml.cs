@@ -62,12 +62,28 @@ namespace Battleship
             {
                 for (int y = 0; y < 10; y++)
                 {
+                    Border border = new Border();
+                    border.BorderThickness = new Thickness(0.1);
+                    border.BorderBrush = Brushes.Black;
+                    Grid.SetColumn(border, x);
+                    Grid.SetRow(border, y);
+
+                    userGrid.Children.Add(border);
+
                     Grid grid = new Grid();
                     Grid.SetColumn(grid, x);
                     Grid.SetRow(grid, y);
                     grid.Background = Brushes.Transparent;
 
                     userGrid.Children.Add(grid);
+
+                    border = new Border();
+                    border.BorderThickness = new Thickness(0.1);
+                    border.BorderBrush = Brushes.Black;
+                    Grid.SetColumn(border, x);
+                    Grid.SetRow(border, y);
+
+                    computerGrid.Children.Add(border);
 
                     grid = new Grid();
                     grid.MouseDown += new MouseButtonEventHandler(HandleFieldClick);

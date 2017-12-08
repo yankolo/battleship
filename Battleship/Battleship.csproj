@@ -229,6 +229,8 @@
     <Resource Include="Assets\waterhit components\circle-gif.gif" />
     <Resource Include="Assets\waterhit components\watersplash.gif" />
     <Resource Include="Assets\waterhit.gif" />
+    <Resource Include="Assets\num10.png" />
+    <Resource Include="Assets\blank.jpg" />
     <Content Include="Sound\Two Steps From Hell - Archangel.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

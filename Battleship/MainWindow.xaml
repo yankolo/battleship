@@ -23,7 +23,9 @@
                 <ColumnDefinition Width="0.1*"/>
             </Grid.ColumnDefinitions>
 
-
+            <Image Source="Assets/blank.jpg" Grid.Column="0" Grid.Row="0" Stretch="Fill"/>
+            <Image Source="Assets/blank.jpg" Grid.Column="3" Grid.Row="0" Stretch="Fill"/>
+            
             <Image x:Name="WaterGif" gif:ImageBehavior.RepeatBehavior="Forever" gif:ImageBehavior.AnimatedSource="Assets/inGameBackground.gif"  Grid.ColumnSpan="2" Grid.Column="1"  Grid.Row="1" RenderTransformOrigin="0.5,0.5" Stretch="Fill"/>
 
             <!-- USER GRID -->
@@ -72,16 +74,16 @@
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
 
-                <Image Grid.Column="0" Source="Assets/num0.png" Stretch="Fill"></Image>
-                <Image Grid.Column="1" Source="Assets/num1.png" Stretch="Fill"></Image>
-                <Image Grid.Column="2" Source="Assets/num2.png" Stretch="Fill"></Image>
-                <Image Grid.Column="3" Source="Assets/num3.png" Stretch="Fill"></Image>
-                <Image Grid.Column="4" Source="Assets/num4.png" Stretch="Fill"></Image>
-                <Image Grid.Column="5" Source="Assets/num5.png" Stretch="Fill"></Image>
-                <Image Grid.Column="6" Source="Assets/num6.png" Stretch="Fill"></Image>
-                <Image Grid.Column="7" Source="Assets/num7.png" Stretch="Fill"></Image>
-                <Image Grid.Column="8" Source="Assets/num8.png" Stretch="Fill"></Image>
-                <Image Grid.Column="9" Source="Assets/num9.png" Stretch="Fill"></Image>
+                <Image Grid.Column="0" Source="Assets/num1.png" Stretch="Fill"></Image>
+                <Image Grid.Column="1" Source="Assets/num2.png" Stretch="Fill"></Image>
+                <Image Grid.Column="2" Source="Assets/num3.png" Stretch="Fill"></Image>
+                <Image Grid.Column="3" Source="Assets/num4.png" Stretch="Fill"></Image>
+                <Image Grid.Column="4" Source="Assets/num5.png" Stretch="Fill"></Image>
+                <Image Grid.Column="5" Source="Assets/num6.png" Stretch="Fill"></Image>
+                <Image Grid.Column="6" Source="Assets/num7.png" Stretch="Fill"></Image>
+                <Image Grid.Column="7" Source="Assets/num8.png" Stretch="Fill"></Image>
+                <Image Grid.Column="8" Source="Assets/num9.png" Stretch="Fill"></Image>
+                <Image Grid.Column="9" Source="Assets/num10.png" Stretch="Fill"></Image>
             </Grid>
 
             <!-- Letters grid for User-->
@@ -113,19 +115,7 @@
                 <Image Grid.Row="8" Source="Assets/letterI.png" Stretch="Fill"></Image>
                 <Image Grid.Row="9" Source="Assets/letterJ.png" Stretch="Fill"></Image>
 
-                <!--
-                <Label Grid.Row="1" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">B</Label>
-                <Label Grid.Row="2" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">C</Label>
-                <Label Grid.Row="3" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">D</Label>
-                <Label Grid.Row="4" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">E</Label>
-                <Label Grid.Row="5" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">F</Label>
-                <Label Grid.Row="6" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">G</Label>
-                <Label Grid.Row="7" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">H</Label>
-                <Label Grid.Row="8" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">I</Label>
-                <Label Grid.Row="9" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" >J</Label>
-				<Border Grid.Row="0" Grid.RowSpan="10" Background="#86BBF7" Opacity="0"/>
-				-->
-
+            
             </Grid>
 
 
@@ -172,16 +162,16 @@
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
-                <Image Grid.Column="0" Source="Assets/num9.png" Stretch="Fill"></Image>
-                <Image Grid.Column="1" Source="Assets/num8.png" Stretch="Fill"></Image>
-                <Image Grid.Column="2" Source="Assets/num7.png" Stretch="Fill"></Image>
-                <Image Grid.Column="3" Source="Assets/num6.png" Stretch="Fill"></Image>
-                <Image Grid.Column="4" Source="Assets/num5.png" Stretch="Fill"></Image>
-                <Image Grid.Column="5" Source="Assets/num4.png" Stretch="Fill"></Image>
-                <Image Grid.Column="6" Source="Assets/num3.png" Stretch="Fill"></Image>
-                <Image Grid.Column="7" Source="Assets/num2.png" Stretch="Fill"></Image>
-                <Image Grid.Column="8" Source="Assets/num1.png" Stretch="Fill"></Image>
-                <Image Grid.Column="9" Source="Assets/num0.png" Stretch="Fill"></Image>
+                <Image Grid.Column="0" Source="Assets/num10.png" Stretch="Fill"></Image>
+                <Image Grid.Column="1" Source="Assets/num9.png" Stretch="Fill"></Image>
+                <Image Grid.Column="2" Source="Assets/num8.png" Stretch="Fill"></Image>
+                <Image Grid.Column="3" Source="Assets/num7.png" Stretch="Fill"></Image>
+                <Image Grid.Column="4" Source="Assets/num6.png" Stretch="Fill"></Image>
+                <Image Grid.Column="5" Source="Assets/num5.png" Stretch="Fill"></Image>
+                <Image Grid.Column="6" Source="Assets/num4.png" Stretch="Fill"></Image>
+                <Image Grid.Column="7" Source="Assets/num3.png" Stretch="Fill"></Image>
+                <Image Grid.Column="8" Source="Assets/num2.png" Stretch="Fill"></Image>
+                <Image Grid.Column="9" Source="Assets/num1.png" Stretch="Fill"></Image>
             </Grid>
 
             <!-- Letter grid of the computer-->
