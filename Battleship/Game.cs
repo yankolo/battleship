@@ -149,7 +149,7 @@ namespace Battleship
                 if (fieldToShoot.IsHit != fieldToShootCopy.IsHit)
                 {
                     _currentTurn = Turn.Computer;
-                    _delayBeforeAIShoot = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 100), DispatcherPriority.Normal, DelayBeforeAIShoot_Tick, Dispatcher.CurrentDispatcher);
+                    _delayBeforeAIShoot = new DispatcherTimer(new TimeSpan(0, 0, 0, 3, 0), DispatcherPriority.Normal, DelayBeforeAIShoot_Tick, Dispatcher.CurrentDispatcher);
                     _delayBeforeAIShoot.Start();
                 }
             }
@@ -300,14 +300,14 @@ namespace Battleship
 		{
 			if (_currentTurn.Equals(Turn.Computer))
 			{
-				_delayBeforeAIShoot = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 500), DispatcherPriority.Normal, DelayBeforeAIShoot_Tick, Dispatcher.CurrentDispatcher);
+				_delayBeforeAIShoot = new DispatcherTimer(new TimeSpan(0, 0, 0, 3, 0), DispatcherPriority.Normal, DelayBeforeAIShoot_Tick, Dispatcher.CurrentDispatcher);
 				_delayBeforeAIShoot.Start();
 			}
 			else
 			{
                 if (_timeForTurnActive)
                 {
-                    _timeForUserTurn = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 500), DispatcherPriority.Normal, TimeForUserTurn_Tick, Dispatcher.CurrentDispatcher);
+                    _timeForUserTurn = new DispatcherTimer(new TimeSpan(0, 0, 0, 3 , 0), DispatcherPriority.Normal, TimeForUserTurn_Tick, Dispatcher.CurrentDispatcher);
                     _timeForUserTurn.Start();
                 }
 			}
