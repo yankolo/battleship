@@ -42,14 +42,14 @@ namespace Battleship
 
         private void Limited40_Click(object sender, RoutedEventArgs e)
         {
-            StartGameWindow.time = 20;
-            _sgw.TIme_Btn.Content = "Limited Time:20 sec";
+            StartGameWindow.time = 40;
+            _sgw.TIme_Btn.Content = "Limited Time:40 sec";
             ((ContentControl)MainGrid_Grd.Parent).Content = _sgw.CreateNewGame_Grd;
         }
 
         private void Limited60_Click(object sender, RoutedEventArgs e)
         {
-            StartGameWindow.time = 20;
+            StartGameWindow.time = 60;
             _sgw.TIme_Btn.Content = "Limited Time:60 sec";
             ((ContentControl)MainGrid_Grd.Parent).Content = _sgw.CreateNewGame_Grd;
         }

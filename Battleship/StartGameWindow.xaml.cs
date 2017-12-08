@@ -68,7 +68,7 @@ namespace Battleship
             else
             {
                 Difficulty d = UserChoice(difficulty);
-                MainWindow dw = new MainWindow(d,userName,debug);
+                MainWindow dw = new MainWindow(d,userName,debug, new TimeSpan(0, 0 , time));
                 StartWindow.mw = dw;
                 userName = "";
                 ((ContentControl)CreateNewGame_Grd.Parent).Content = dw.Game_Grid;

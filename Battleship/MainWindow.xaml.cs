@@ -34,12 +34,12 @@ namespace Battleship
         /// <summary>
         /// Setup basics and create game window
         /// </summary>
-        public MainWindow(Difficulty difficulty, String userName , bool debug)
+        public MainWindow(Difficulty difficulty, String userName , bool debug, TimeSpan timeForUserTurn)
         {
             InitializeComponent();
             _useDebug = debug;
             SetDebug(debug);
-            _game = new Game(difficulty, userName,debug);
+            _game = new Game(difficulty, userName,debug, timeForUserTurn);
             _game.GameUpdated += OnGameUpdated;
             InitializeGridCells();
             UpdateAllGUI(true);

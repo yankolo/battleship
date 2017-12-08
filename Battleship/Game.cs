@@ -38,12 +38,13 @@ namespace Battleship
         private TimeSpan _timeGivenForTurn;
         private TimeSpan _currentTurnTime;
         private bool _debug = false;
+        private bool _timeForTurnActive;
 
         // Delegate and Event for the event handler GameUpdated
         public delegate void GameUpdatedEventHandler(object sender, UpdatedFieldEventArgs args);
         public event GameUpdatedEventHandler GameUpdated;
 
-        public Game(Difficulty difficulty, String userName , bool debug)
+        public Game(Difficulty difficulty, String userName , bool debug, TimeSpan timeGivenForTurn)
         {
             _debug = debug;
             _userBoard = new Board(10, 10, true);
@@ -52,7 +53,13 @@ namespace Battleship
             ShipFactory.FillBoardRandomly(_userBoard, 1, 2, 3, 4);
             _userName = userName.ToLower();
 
-            _timeGivenForTurn = new TimeSpan(0, 0, 0, 10, 0);
+            if (timeGivenForTurn.Seconds == 0 && timeGivenForTurn.Minutes == 0)
+                _timeForTurnActive = false;
+            else
+                _timeForTurnActive = true;
+
+            if (_timeForTurnActive == true)
+                _timeGivenForTurn = timeGivenForTurn;
 
             switch (difficulty)
             {
@@ -69,9 +76,12 @@ namespace Battleship
 
             _currentTurn = Turn.Player;
 
-            _timeForUserTurn = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 500), DispatcherPriority.Normal, TimeForUserTurn_Tick, Dispatcher.CurrentDispatcher);
-            _currentTurnTime = new TimeSpan();
-            _timeForUserTurn.Start();
+            if (_timeForTurnActive)
+            {
+                _timeForUserTurn = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 500), DispatcherPriority.Normal, TimeForUserTurn_Tick, Dispatcher.CurrentDispatcher);
+                _currentTurnTime = new TimeSpan();
+                _timeForUserTurn.Start();
+            }
         }
 
         public void PauseGame()
@@ -138,9 +148,12 @@ namespace Battleship
 
             _delayBeforeAIShoot = null;
 
-            _timeForUserTurn = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 500), DispatcherPriority.Normal, TimeForUserTurn_Tick, Dispatcher.CurrentDispatcher);
-            _currentTurnTime = new TimeSpan();
-            _timeForUserTurn.Start();
+            if (_timeForTurnActive)
+            {
+                _timeForUserTurn = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 500), DispatcherPriority.Normal, TimeForUserTurn_Tick, Dispatcher.CurrentDispatcher);
+                _currentTurnTime = new TimeSpan();
+                _timeForUserTurn.Start();
+            }
         }
 
         private void TimeForUserTurn_Tick(object sender, EventArgs e)
