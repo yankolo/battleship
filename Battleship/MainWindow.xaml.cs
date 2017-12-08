@@ -312,36 +312,258 @@ namespace Battleship
                         }
                         else
                         {
-                            if (field.IsHit == false)
+                            grid.Children.Clear();
+
+                            DisplayShip(field, grid);
+
+                            if (field.IsHit == true)
                             {
-                                grid.Children.Clear();
-
-                                BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/red.png"));
-                                Image image = new Image();
-                                image.Source = bitmap;
-                                grid.Children.Add(image);
-
-
-                            }
-                            else
-                            {
-                                grid.Children.Clear();
-
-                                BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/red.png"));
-                                Image image = new Image();
-                                image.Source = bitmap;
-                                grid.Children.Add(image);
-
+                                // ADD LAST FRAME OF X ON TOP
                                 Image secondImage = new Image();
                                 secondImage.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/lastShipHitFrame.gif"));
                                 grid.Children.Add(secondImage);
-                                // ADD LAST FRAME OF X ON TOP
-
                             }
-
                         }
                     }
                 }
+            }
+        }
+
+        private void DisplayShip(Field field, Grid grid)
+        {
+            switch (field.Ship.Size)
+            {
+                //Submarine (Length 2)
+                case 2:
+                    if (field.ShipDirection.Equals(Direction.Horizontal))
+                    {
+                        switch (field.ShipFieldPosition)
+                        {
+                            case 0:
+                                Image image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/SubmarineBack.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                            case 1:
+                                image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/SubmarineFront.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (field.ShipFieldPosition)
+                        {
+                            case 0:
+                                Image image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerSubmarineFront.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                            case 1:
+                                image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerSubmarineBack.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                        }
+                    }
+                    break;
+
+                //Destroyer (Length 3)
+                case 3:
+                    if (field.ShipDirection.Equals(Direction.Horizontal))
+                    {
+                        switch (field.ShipFieldPosition)
+                        {
+                            case 0:
+                                Image image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/DestroyerBack.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                            case 1:
+                                image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/DestroyerMiddle.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                            case 2:
+                                image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/DestroyerFront.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (field.ShipFieldPosition)
+                        {
+                            case 0:
+                                Image image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerDestroyerBack.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                            case 1:
+                                image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerDestroyerMiddle.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                            case 2:
+                                image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerDestroyerFront.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                        }
+                    }
+                    break;
+
+                //Carrier (Length 4)
+                case 4:
+                    if (field.ShipDirection.Equals(Direction.Horizontal))
+                    {
+                        switch (field.ShipFieldPosition)
+                        {
+                            case 0:
+                                Image image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/CarrierBack.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                            case 1:
+                                image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/CarrierMiddleBack.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                            case 2:
+                                image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/CarrierMiddleFront.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                            case 3:
+                                image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/CarrierFront.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (field.ShipFieldPosition)
+                        {
+                            case 0:
+                                Image image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerCarrierBack.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                            case 1:
+                                image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerCarrierMiddleBack.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                            case 2:
+                                image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerCarrierMiddleFront.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                            case 3:
+                                image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerCarrierFront.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                        }
+                    }
+                    break;
+
+                //Battleship
+                case 5:
+                    if (field.ShipDirection.Equals(Direction.Horizontal))
+                    {
+                        switch (field.ShipFieldPosition)
+                        {
+                            case 0:
+                                Image image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/BattleshipBack.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                            case 1:
+                                image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/BattleshipBack2.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                            case 2:
+                                image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/BattleshipMiddle.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                            case 3:
+                                image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/BattleshipFront2.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                            case 4:
+                                image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/BattleshipFront.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (field.ShipFieldPosition)
+                        {
+                            case 0:
+                                Image image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerBattleshipBack.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                            case 1:
+                                image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerBattleshipBack2.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                            case 2:
+                                image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerBattleshipMiddle.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                            case 3:
+                                image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerBattleshipFront2.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                            case 4:
+                                image = new Image();
+                                image.Stretch = Stretch.Fill;
+                                image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerBattleshipFront.png")); ;
+                                grid.Children.Add(image);
+                                break;
+                        }
+                    }
+                    break;
             }
         }
 

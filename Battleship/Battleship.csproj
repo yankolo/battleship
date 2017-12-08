@@ -231,6 +231,34 @@
     <Resource Include="Assets\waterhit.gif" />
     <Resource Include="Assets\num10.png" />
     <Resource Include="Assets\blank.jpg" />
+    <Resource Include="Assets\Ships\BattleshipBack.png" />
+    <Resource Include="Assets\Ships\BattleshipBack2.png" />
+    <Resource Include="Assets\Ships\BattleshipFront.png" />
+    <Resource Include="Assets\Ships\BattleshipFront2.png" />
+    <Resource Include="Assets\Ships\BattleshipMiddle.png" />
+    <Resource Include="Assets\Ships\CarrierBack.png" />
+    <Resource Include="Assets\Ships\CarrierFront.png" />
+    <Resource Include="Assets\Ships\CarrierMiddleBack.png" />
+    <Resource Include="Assets\Ships\CarrierMiddleFront.png" />
+    <Resource Include="Assets\Ships\DestroyerBack.png" />
+    <Resource Include="Assets\Ships\DestroyerFront.png" />
+    <Resource Include="Assets\Ships\DestroyerMiddle.png" />
+    <Resource Include="Assets\Ships\SubmarineBack.png" />
+    <Resource Include="Assets\Ships\SubmarineFront.png" />
+    <Resource Include="Assets\Ships\VerBattleshipBack.png" />
+    <Resource Include="Assets\Ships\VerBattleshipBack2.png" />
+    <Resource Include="Assets\Ships\VerBattleshipFront.png" />
+    <Resource Include="Assets\Ships\VerBattleshipFront2.png" />
+    <Resource Include="Assets\Ships\VerBattleshipMiddle.png" />
+    <Resource Include="Assets\Ships\VerCarrierBack.png" />
+    <Resource Include="Assets\Ships\VerCarrierFront.png" />
+    <Resource Include="Assets\Ships\VerCarrierMiddleBack.png" />
+    <Resource Include="Assets\Ships\VerCarrierMiddleFront.png" />
+    <Resource Include="Assets\Ships\VerDestroyerBack.png" />
+    <Resource Include="Assets\Ships\VerDestroyerFront.png" />
+    <Resource Include="Assets\Ships\VerDestroyerMiddle.png" />
+    <Resource Include="Assets\Ships\VerSubmarineBack.png" />
+    <Resource Include="Assets\Ships\VerSubmarineFront.png" />
     <Content Include="Sound\Two Steps From Hell - Archangel.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
