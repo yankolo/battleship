@@ -53,7 +53,7 @@
 
 
                 <Button Grid.Row="1" Grid.Column="1" Name="Start_Game_Btn"  Content="Start New Game"   BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1" Click="Start_Game_Btn_Click" FontSize="25"/>
-                <Button Grid.Row="3" Grid.Column="1" Name="Load_Btn"  Content="Load Game" BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1" Click="Load_Btn_Click" FontSize="25"/>
+                <Button Grid.Row="3" Grid.Column="1" Name="Load_Btn"  Content="Load Previous Game" BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1" Click="Load_Btn_Click" FontSize="25"/>
                 <Button Grid.Row="5" Grid.Column="1" Name="LeaderBoard_Btn" Content="LeaderBoard" BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1" Click="LeaderBoard_Click" FontSize="25"/>
 
                 <Grid Grid.Row="7" Grid.Column="1">

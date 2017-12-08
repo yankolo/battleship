@@ -50,9 +50,9 @@
                         <RowDefinition  Height="37*"/>
                     </Grid.RowDefinitions>
 
-                    <Button Grid.Row="2" Name="MediumDifficulty_Btnn"  Content="Medium" BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1" Click="MediumDifficulty_Btnn_Click"/>
-                    <Button Grid.Row="4" Name="HardDifficulty_Btn"  Content="Hard"  BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1" Click="HardDifficulty_Btn_Click"/>
-                    <Button Grid.Row="0" Name="EasyDifficulty_Btn"  Content="Easy" BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1" Click="EasyDifficulty_Btn_Click"/>
+                    <Button Grid.Row="2" Name="MediumDifficulty_Btnn" FontSize="25" Content="Medium" BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1" Click="MediumDifficulty_Btnn_Click"/>
+                    <Button Grid.Row="4" Name="HardDifficulty_Btn" FontSize="25" Content="Hard"  BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1" Click="HardDifficulty_Btn_Click"/>
+                    <Button Grid.Row="0" Name="EasyDifficulty_Btn" FontSize="25" Content="Easy" BorderBrush="{x:Null}" Foreground="#FFFBFAFA" Background="#FFB9C9C1" Click="EasyDifficulty_Btn_Click"/>
                     
 
                 </Grid>

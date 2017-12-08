@@ -67,7 +67,7 @@
                    
                     <DataGridTextColumn Width="150*" Header="Player Name" Binding="{ Binding PlayerName}" Foreground="#FFF3E9E9" FontSize="45" />
                     <DataGridTextColumn Width="100*" Header="Easy Wins" Binding="{Binding EasyWins}" Foreground="#FFF3E9E9"  FontSize="45" />
-                    <DataGridTextColumn Width="100*" Header="Medium Wins" Binding="{Binding MediumWins}" Foreground="#FFF3E9E9"  FontSize="45" />
+                    <DataGridTextColumn Width="100*" Header="Med Wins" Binding="{Binding MediumWins}" Foreground="#FFF3E9E9"  FontSize="45" />
                     <DataGridTextColumn Width="100*" Header="Hard Wins" Binding="{Binding HardWins}" Foreground="#FFF3E9E9"  FontSize="45" />
                     <DataGridTextColumn Width="100*" Header="Losses" Binding="{Binding Losses}" Foreground="#FFF3E9E9"  FontSize="45" />
                     

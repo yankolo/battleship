@@ -30,18 +30,22 @@ namespace Battleship
     public partial class MainWindow : Window
     {
         public Game _game;
-        private bool _useDebug;
+
+        Border selectionBorder; // When hovering over field
+
         /// <summary>
         /// Setup basics and create game window
         /// </summary>
         public MainWindow(Difficulty difficulty, String userName , bool debug, TimeSpan timeForUserTurn)
         {
             InitializeComponent();
-            _useDebug = debug;
             SetDebug(debug);
             _game = new Game(difficulty, userName,debug, timeForUserTurn);
             _game.GameUpdated += OnGameUpdated;
+            _game.GameFinished += OnGameFinished;
             InitializeGridCells();
+            selectionBorder = new Border();
+            selectionBorder.Name = "SelectionBorder";
             UpdateAllGUI(true);
         }
 
@@ -49,8 +53,10 @@ namespace Battleship
         {
             InitializeComponent();
             _game = game;
-            _useDebug = _game.Debug;
             _game.GameUpdated += OnGameUpdated;
+            _game.GameFinished += OnGameFinished;
+            selectionBorder = new Border();
+            selectionBorder.Name = "SelectionBorder";
             InitializeGridCells();
             UpdateAllGUI(true);
         }
@@ -76,7 +82,7 @@ namespace Battleship
                     grid.Background = Brushes.Transparent;
 
                     userGrid.Children.Add(grid);
-                    
+
                     if (x == 0)
                     {
                         border = new Border();
@@ -98,12 +104,29 @@ namespace Battleship
 
                     grid = new Grid();
                     grid.MouseDown += new MouseButtonEventHandler(HandleFieldClick);
+                    //grid.MouseLeave += new MouseEventHandler(OnMouseLeave);
                     Grid.SetColumn(grid, x);
-                    Grid.SetRow(grid, y);
+                    Grid.SetRow(grid, y); 
                     grid.Background = Brushes.Transparent;
 
                     computerGrid.Children.Add(grid);
                 }
+            }
+        }
+
+        private void OnGameFinished(object sender, EventArgs e)
+        {
+            if (_game.IsGameWOn == true)
+            {
+                WinLoss wl = new WinLoss();
+                wl.Title.Text = "You won!";
+                inGameMenu_Ctn.Content = wl.WinLoss_Grd;
+            }
+            else
+            {
+                WinLoss wl = new WinLoss();
+                wl.Title.Text = "You Lost!";
+                inGameMenu_Ctn.Content = wl.WinLoss_Grd;
             }
         }
 
@@ -171,6 +194,7 @@ namespace Battleship
             }
         }
 
+
         public void UpdateField(Grid grid, Field newField, Field oldField)
         {
             if ((oldField.IsHit != newField.IsHit))
@@ -199,7 +223,24 @@ namespace Battleship
                     ImageBehavior.SetAnimatedSource(img, image);
                     ImageBehavior.SetRepeatBehavior(img, new RepeatBehavior(1));
 
-                    // Code to display animation and sound when water is hit
+                    Ship ship = newField.Ship;
+
+                    if (ship.IsSunk)
+                        for (int i = 0; i < computerGrid.Children.Count; i++)
+                        {
+                            UIElement e = computerGrid.Children[i];
+                            if (e.GetType() == typeof(Grid))
+                            {
+                                Grid shipGrid = (Grid)e;
+                                Coordinate coordinate = new Coordinate(Grid.GetColumn(shipGrid), Grid.GetRow(shipGrid));
+                                Field field = _game.RadarBoard.GetField(coordinate);
+
+                                if (field.Ship == ship)
+                                {
+                                    DisplayShip(field, shipGrid, true);
+                                }
+                            }
+                        }
                 }
             }
             else
@@ -211,12 +252,14 @@ namespace Battleship
         }
 
 
+
+
         public void UpdateAllGUI(bool shouldUpdateFields = false)
         {
-            userText.Text = _game.DisplayedUserText;
-            cpuText.Text = _game.DisplayedCPUText;
-            userScoreboard.Content = "shots:\r\n" + _game.UserShots;
-            cpuScoreboard.Content = "shots:\r\n" + _game.CpuShots;
+            //userText.Text = _game.DisplayedUserText;
+            //cpuText.Text = _game.DisplayedCPUText;
+            //userScoreboard.Content = "shots:\r\n" + _game.UserShots;
+            //cpuScoreboard.Content = "shots:\r\n" + _game.CpuShots;
             if (_game.Debug == true)
             {
                 Debug_btn.Visibility = Visibility.Visible;
@@ -241,10 +284,18 @@ namespace Battleship
                 if (e.GetType() == typeof(Grid))
                 {
                     Grid grid = (Grid)e;
+
                     Coordinate coordinate = new Coordinate(Grid.GetColumn(grid), Grid.GetRow(grid));
                     Field field = _game.RadarBoard.GetField(coordinate);
 
-                    if (field.IsRevealed == false)
+                    if (_game.IsCurrentlyDebug)
+                    {
+                        grid.Children.Clear();
+
+                        if (field.Ship != null)
+                            DisplayShip(field, grid);
+                    }
+                    else if (field.IsRevealed == false)
                     {
                         grid.Children.Clear();
 
@@ -257,21 +308,39 @@ namespace Battleship
                     {
                         if (field.Ship == null)
                         {
-                            grid.Children.Clear();
+                            if (field.IsHit == false)
+                            {
+                                grid.Children.Clear();
 
-                            BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/lastWaterHitFrame.gif"));
-                            Image image = new Image();
-                            image.Source = bitmap;
-                            grid.Children.Add(image);
+                                BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/transparent.png"));
+                                Image image = new Image();
+                                image.Source = bitmap;
+                                grid.Children.Add(image);
+                            }
+                            else
+                            {
+                                grid.Children.Clear();
+
+                                BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/lastWaterHitFrame.gif"));
+                                Image image = new Image();
+                                image.Source = bitmap;
+                                grid.Children.Add(image);
+                            }
                         }
                         else
                         {
                             grid.Children.Clear();
 
-                            BitmapImage bitmap = new BitmapImage(new Uri("pack://application:,,,/Assets/lastShipHitFrame.gif"));
-                            Image image = new Image();
-                            image.Source = bitmap;
-                            grid.Children.Add(image);
+                            if (field.Ship.IsSunk)
+                                DisplayShip(field, grid);
+
+                            if (field.IsHit == true)
+                            {
+                                // ADD LAST FRAME OF X ON TOP
+                                Image secondImage = new Image();
+                                secondImage.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/lastShipHitFrame.gif"));
+                                grid.Children.Add(secondImage);
+                            }
                         }
                     }
                 }
@@ -340,9 +409,9 @@ namespace Battleship
             }
         }
 
-        private void DisplayShip(Field field, Grid grid)
+        private void DisplayShip(Field field, Grid grid, bool displayBehind = false)
         {
-            switch (field.Ship.Size)
+            switch (field.Ship.ActualSize)
             {
                 //Submarine (Length 2)
                 case 2:
@@ -354,13 +423,19 @@ namespace Battleship
                                 Image image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/SubmarineBack.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                             case 1:
                                 image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/SubmarineFront.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                         }
                     }
@@ -372,13 +447,19 @@ namespace Battleship
                                 Image image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerSubmarineFront.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                             case 1:
                                 image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerSubmarineBack.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                         }
                     }
@@ -394,19 +475,28 @@ namespace Battleship
                                 Image image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/DestroyerBack.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                             case 1:
                                 image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/DestroyerMiddle.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                             case 2:
                                 image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/DestroyerFront.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                         }
                     }
@@ -418,19 +508,28 @@ namespace Battleship
                                 Image image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerDestroyerBack.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                             case 1:
                                 image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerDestroyerMiddle.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                             case 2:
                                 image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerDestroyerFront.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                         }
                     }
@@ -446,25 +545,37 @@ namespace Battleship
                                 Image image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/CarrierBack.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                             case 1:
                                 image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/CarrierMiddleBack.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                             case 2:
                                 image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/CarrierMiddleFront.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                             case 3:
                                 image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/CarrierFront.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                         }
                     }
@@ -476,25 +587,37 @@ namespace Battleship
                                 Image image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerCarrierBack.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                             case 1:
                                 image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerCarrierMiddleBack.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                             case 2:
                                 image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerCarrierMiddleFront.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                             case 3:
                                 image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerCarrierFront.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                         }
                     }
@@ -510,31 +633,46 @@ namespace Battleship
                                 Image image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/BattleshipBack.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                             case 1:
                                 image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/BattleshipBack2.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                             case 2:
                                 image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/BattleshipMiddle.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                             case 3:
                                 image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/BattleshipFront2.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                             case 4:
                                 image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/BattleshipFront.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                         }
                     }
@@ -546,31 +684,46 @@ namespace Battleship
                                 Image image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerBattleshipBack.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                             case 1:
                                 image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerBattleshipBack2.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                             case 2:
                                 image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerBattleshipMiddle.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                             case 3:
                                 image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerBattleshipFront2.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                             case 4:
                                 image = new Image();
                                 image.Stretch = Stretch.Fill;
                                 image.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Ships/VerBattleshipFront.png")); ;
-                                grid.Children.Add(image);
+                                if (displayBehind)
+                                    grid.Children.Insert(0, image);
+                                else
+                                    grid.Children.Add(image);
                                 break;
                         }
                     }
@@ -581,6 +734,7 @@ namespace Battleship
         public void SaveGame()
         {
             _game.GameUpdated -= OnGameUpdated;
+            _game.GameFinished -= OnGameFinished;
 
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream("LastSave.save", FileMode.Create, FileAccess.Write, FileShare.None);
@@ -598,18 +752,19 @@ namespace Battleship
 
         private void Debug_btn_Click(object sender, RoutedEventArgs e)
         {
-            if (_useDebug)
+            if (_game.IsCurrentlyDebug == false)
             {
-
+                _game.PauseGame();
                 _game.RevealAll();
-                _useDebug = false;
+                _game.IsCurrentlyDebug = true;
                 Debug_btn.Content = "Hide All";
                 UpdateAllGUI(true);
             }
             else
             {
+                _game.UnPauseGame();
                 _game.HideAll();
-                _useDebug = true;
+                _game.IsCurrentlyDebug = false;
                 Debug_btn.Content = "Reveal All";
                 UpdateAllGUI(true);
             }

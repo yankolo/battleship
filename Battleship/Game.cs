@@ -40,9 +40,16 @@ namespace Battleship
         private bool _debug = false;
         private bool _timeForTurnActive;
 
-        // Delegate and Event for the event handler GameUpdated
+        [NonSerialized]
+        private bool _isCurrentlyDebug;
+
+        // Delegate and Event for the event GameUpdated
         public delegate void GameUpdatedEventHandler(object sender, UpdatedFieldEventArgs args);
         public event GameUpdatedEventHandler GameUpdated;
+
+        // Delegate and Evente for the event GameFinished
+        public delegate void GameFinishedEventHandler(object sender, EventArgs e);
+        public event GameFinishedEventHandler GameFinished;
 
         public Game(Difficulty difficulty, String userName , bool debug, TimeSpan timeGivenForTurn)
         {
@@ -118,6 +125,18 @@ namespace Battleship
             }
         }
 
+        /// <summary>
+        /// Method to trigger the event GameFinished
+        /// </summary>
+        protected virtual void OnGameFinished()
+        {
+            if (GameFinished != null)
+            {
+                EventArgs e = new EventArgs();
+                GameFinished(this, e);
+            }
+        }
+
         public void UpdateGame(Coordinate input)
         {
 			if (_currentTurn.Equals(Turn.Player) && _isGamePaused == false)
@@ -130,7 +149,7 @@ namespace Battleship
                 if (fieldToShoot.IsHit != fieldToShootCopy.IsHit)
                 {
                     _currentTurn = Turn.Computer;
-                    _delayBeforeAIShoot = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 500), DispatcherPriority.Normal, DelayBeforeAIShoot_Tick, Dispatcher.CurrentDispatcher);
+                    _delayBeforeAIShoot = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 100), DispatcherPriority.Normal, DelayBeforeAIShoot_Tick, Dispatcher.CurrentDispatcher);
                     _delayBeforeAIShoot.Start();
                 }
             }
@@ -190,6 +209,7 @@ namespace Battleship
                 field.Ship.Size--;
                 if (field.Ship.Size ==0)
                 {
+                    field.Ship.IsSunk = true;
                     _displayedUserText = "That's a hit! This " + field.Ship.Name + " has been sunked.";
                     field.IsHit = true;
                 }
@@ -219,8 +239,9 @@ namespace Battleship
                 _isGameWon = true;
                 _displayedUserText = "Congratulations you sunk every ship";
                 OnGameUpdated(field, copyField, _radarBoard);
+                OnGameFinished();
 
-				SaveScore();
+                SaveScore();
 
 				// add text output and end game --> ask user to restart or end game.
 			}
@@ -240,7 +261,8 @@ namespace Battleship
                 field.Ship.Size--;
                 if (field.Ship.Size == 0)
                 {
-					field.IsHit = true;
+                    field.Ship.IsSunk = true;
+                    field.IsHit = true;
                     _displayedCPUText = "You have been hit!" + field.Ship.Name + " has been sunked.";
                 }
                 else
@@ -265,8 +287,9 @@ namespace Battleship
                 _isGameWon = false;
                 _displayedCPUText = "Sorry the cpu destroyed every ship you have :(";
                 OnGameUpdated(field, copyField, _userBoard);
+                OnGameFinished();
 
-				SaveScore();
+                SaveScore();
 
 				// add text output and end game --> ask user to restart or end game.
 			}
@@ -282,8 +305,11 @@ namespace Battleship
 			}
 			else
 			{
-				_timeForUserTurn = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 500), DispatcherPriority.Normal, TimeForUserTurn_Tick, Dispatcher.CurrentDispatcher);
-				_timeForUserTurn.Start();
+                if (_timeForTurnActive)
+                {
+                    _timeForUserTurn = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 500), DispatcherPriority.Normal, TimeForUserTurn_Tick, Dispatcher.CurrentDispatcher);
+                    _timeForUserTurn.Start();
+                }
 			}
 
 		}
@@ -392,5 +418,7 @@ namespace Battleship
         public String DisplayedUserText { get { return _displayedUserText; } }
         public String DisplayedCPUText { get { return _displayedCPUText; } }
         public bool Debug { get { return _debug; } }
+        public bool IsCurrentlyDebug { get { return _isCurrentlyDebug; } set { _isCurrentlyDebug = value; } }
+        public Turn CurrentTurn { get { return _currentTurn; } }
     }
 }

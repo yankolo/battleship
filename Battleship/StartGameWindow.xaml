@@ -57,7 +57,7 @@
                     <Button Grid.Row="4" Name="Difficulty_Btn" Content="Difficulty:Easy" BorderBrush="{x:Null}" Foreground="#FF060606" Background="#FFB9C9C1" Click="Difficulty_Btn_Click" FontSize="25" />
                     <Button Grid.Row="6" Name="TIme_Btn" Content="Limited Time:Off" BorderBrush="{x:Null}" Foreground="#FF060606" Background="#FFB9C9C1" FontSize="25" Click="TIme_Btn_Click"/>
 
-                    <TextBox Background="White" Grid.Row="0" Name="UserName_TBox" Text="Enter your User Name"  FontSize="24"  Foreground="#FFB0A7A7" GotFocus="UserName_TBox_GotFocus" LostFocus="UserName_TBox_LostFocus"/>
+                    <TextBox Background="White" VerticalContentAlignment="Center" TextAlignment="Center" Grid.Row="0" Name="UserName_TBox" Text="Enter your User Name"  FontSize="24"  Foreground="#FFB0A7A7" GotFocus="UserName_TBox_GotFocus" LostFocus="UserName_TBox_LostFocus"/>
 
                     <Grid Grid.Row="9">
                         <Grid.ColumnDefinitions>
