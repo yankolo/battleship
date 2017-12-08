@@ -76,6 +76,17 @@ namespace Battleship
                     grid.Background = Brushes.Transparent;
 
                     userGrid.Children.Add(grid);
+                    
+                    if (x == 0)
+                    {
+                        border = new Border();
+                        border.BorderThickness = new Thickness(2, 0, 0, 0);
+                        border.BorderBrush = Brushes.Black;
+                        Grid.SetColumn(border, x);
+                        Grid.SetRow(border, y);
+
+                        computerGrid.Children.Add(border);
+                    }
 
                     border = new Border();
                     border.BorderThickness = new Thickness(0.1);
